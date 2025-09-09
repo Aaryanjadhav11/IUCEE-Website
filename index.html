@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUCEE-RIT Student Chapter</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">I</div>
+                    <span class="logo-text">IUCEE-RIT</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="nav-desktop">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#vision" class="nav-link">Vision</a>
+                    <a href="#timeline" class="nav-link">Journey</a>
+                    <a href="#achievements" class="nav-link">Achievements</a>
+                    <a href="#sdg" class="nav-link">UN SDGs</a>
+                    <a href="#team" class="nav-link">Team</a>
+                    <a href="#gallery" class="nav-link">Gallery</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i data-lucide="menu" class="menu-icon"></i>
+                    <i data-lucide="x" class="close-icon hidden"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="nav-mobile hidden" id="mobileNav">
+                <nav class="nav-mobile-content">
+                    <a href="#home" class="nav-link-mobile">Home</a>
+                    <a href="#vision" class="nav-link-mobile">Vision</a>
+                    <a href="#timeline" class="nav-link-mobile">Journey</a>
+                    <a href="#achievements" class="nav-link-mobile">Achievements</a>
+                    <a href="#sdg" class="nav-link-mobile">UN SDGs</a>
+                    <a href="#team" class="nav-link-mobile">Team</a>
+                    <a href="#gallery" class="nav-link-mobile">Gallery</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="parallax-bg-1"></div>
+        <div class="parallax-bg-2"></div>
+        <div class="parallax-bg-3"></div>
+        
+        <div class="floating-elements">
+            <div class="floating-element floating-1"></div>
+            <div class="floating-element floating-2"></div>
+            <div class="floating-element floating-3"></div>
+            <div class="floating-element floating-4"></div>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="hero-title">
+                IUCEE-RIT
+                <span class="hero-subtitle">Student Chapter</span>
+            </h1>
+            <p class="hero-description">
+                Nurturing Socially Responsible Engineers for Global Impact
+            </p>
+        </div>
+    </section>
+
+    <!-- Vision & Mission Section -->
+    <section id="vision" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Vision & Mission</h2>
+                <p class="section-subtitle">Transforming Engineering Education for a Better Tomorrow</p>
+            </div>
+
+            <div class="vision-grid">
+                <div class="card vision-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i data-lucide="target"></i>
+                            Vision
+                        </h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="vision-text">
+                            Our goal is to nurture socially responsible and innovative engineers who use their technical skills to solve global challenges and drive sustainable development.
+                        </p>
+                        <div class="vision-points">
+                            <div class="vision-point">
+                                <i data-lucide="lightbulb"></i>
+                                <div>
+                                    <h4>Innovation & Creativity</h4>
+                                    <p>Empower students to design real-world solutions for societal and environmental issues.</p>
+                                </div>
+                            </div>
+                            <div class="vision-point">
+                                <i data-lucide="users"></i>
+                                <div>
+                                    <h4>Community Engagement</h4>
+                                    <p>Collaborate with experts, NGOs, and local bodies to implement impactful projects.</p>
+                                </div>
+                            </div>
+                            <div class="vision-point">
+                                <i data-lucide="shield"></i>
+                                <div>
+                                    <h4>Leadership & Teamwork</h4>
+                                    <p>Promote inclusive leadership, collaboration, and lifelong learning.</p>
+                                </div>
+                            </div>
+                            <div class="vision-point">
+                                <i data-lucide="heart"></i>
+                                <div>
+                                    <h4>Social Responsibility</h4>
+                                    <p>Apply engineering for societal good in areas like sustainability, healthcare, and welfare.</p>
+                                </div>
+                            </div>
+                            <div class="vision-point">
+                                <i data-lucide="award"></i>
+                                <div>
+                                    <h4>Excellence & Collaboration</h4>
+                                    <p>Encourage national/international competition participation and industry-academic partnerships.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mission-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i data-lucide="book-open"></i>
+                            Mission
+                        </h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="mission-text">
+                            To create a platform where engineering students can develop innovative solutions, engage with real-world challenges, and contribute meaningfully to society through collaborative learning and sustainable practices.
+                        </p>
+                        <div class="mission-badges">
+                            <span class="badge">Research & Innovation</span>
+                            <span class="badge">Community Impact</span>
+                            <span class="badge">Sustainable Development</span>
+                            <span class="badge">Global Collaboration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="section timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Journey</h2>
+                <p class="section-subtitle">Milestones in Engineering Education Excellence</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-events" id="timelineEvents">
+                    <!-- Timeline events will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Achievements</h2>
+                <p class="section-subtitle">Making a Difference Through Engineering Excellence</p>
+            </div>
+
+            <div class="achievements-grid" id="achievementsGrid">
+                <!-- Achievements will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- UN SDG Section -->
+    <section id="sdg" class="section sdg-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">UN Sustainable Development Goals</h2>
+                <p class="section-subtitle">Our Clubs Focus on Global Impact</p>
+            </div>
+
+            <div class="sdg-container">
+                <div class="sdg-scroll" id="sdgScroll">
+                    <!-- SDG cards will be populated by JavaScript -->
+                </div>
+                <div class="sdg-indicators" id="sdgIndicators">
+                    <!-- Indicators will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Leadership</h2>
+                <p class="section-subtitle">Meet the Visionaries Behind IUCEE-RIT</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="card team-card">
+                    <div class="card-content">
+                        <h3>Krishna Vedula</h3>
+                        <p class="team-role">Director of IUCEE Student Chapter</p>
+                        <p class="team-description">Leading the vision for innovative engineering education</p>
+                    </div>
+                </div>
+
+                <div class="card team-card">
+                    <div class="card-content">
+                        <h3>Mr. Mayur Maske</h3>
+                        <p class="team-role">Faculty Coordinator IUCEE RIT</p>
+                        <p class="team-description">Guiding students towards academic excellence</p>
+                    </div>
+                </div>
+
+                <div class="card team-card">
+                    <div class="card-content">
+                        <h3>Alumni Network</h3>
+                        <div class="alumni-list">
+                            <p><strong>Tanmay Bhosle</strong> - University of Sydney, Australia</p>
+                            <p><strong>Shubham Katekar</strong> - Director at PullPubb</p>
+                            <p><strong>Sejal Patil</strong> - Co-founder at TechSync Consulting</p>
+                            <p><strong>Pawan Kamble</strong> - Industry Expert</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Journey in Pictures</h2>
+                <p class="section-subtitle">Moments from IASF Events Across India</p>
+            </div>
+
+            <div class="gallery-main">
+                <div class="gallery-slider" id="gallerySlider">
+                    <!-- Gallery images will be populated by JavaScript -->
+                </div>
+                <button class="gallery-nav gallery-prev" id="galleryPrev">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="gallery-nav gallery-next" id="galleryNext">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+                <div class="gallery-indicators" id="galleryIndicators">
+                    <!-- Indicators will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="gallery-thumbnails" id="galleryThumbnails">
+                <!-- Thumbnails will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-icon">I</div>
+                        <span class="logo-text">IUCEE-RIT</span>
+                    </div>
+                    <p>Nurturing socially responsible engineers who use their technical skills to solve global challenges and drive sustainable development.</p>
+                </div>
+
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i data-lucide="mail"></i>
+                            <span>iucee.rit@example.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i data-lucide="phone"></i>
+                            <span>+91 12345 67890</span>
+                        </div>
+                        <div class="contact-item">
+                            <i data-lucide="map-pin"></i>
+                            <span>Rajiv Gandhi Institute of Technology<br>Mumbai, Maharashtra, India</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <div class="footer-nav">
+                        <a href="#home">Home</a>
+                        <a href="#vision">Vision & Mission</a>
+                        <a href="#timeline">Our Journey</a>
+                        <a href="#achievements">Achievements</a>
+                        <a href="#sdg">UN SDGs</a>
+                        <a href="#team">Leadership</a>
+                    </div>
+                </div>
+
+                <div class="footer-members">
+                    <h3>Club Members</h3>
+                    <div class="members-list" id="membersList">
+                        <!-- Members will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-media-section">
+                <h3>Connect With Us</h3>
+                <div class="social-cards">
+                    <div class="social-card">
+                        <i data-lucide="github"></i>
+                        <h4>GitHub</h4>
+                        <p>Explore our open-source projects and contributions</p>
+                        <button class="social-btn">Follow Us</button>
+                    </div>
+                    <div class="social-card">
+                        <i data-lucide="linkedin"></i>
+                        <h4>LinkedIn</h4>
+                        <p>Connect with our professional network and updates</p>
+                        <button class="social-btn">Connect</button>
+                    </div>
+                    <div class="social-card">
+                        <i data-lucide="twitter"></i>
+                        <h4>Twitter</h4>
+                        <p>Stay updated with our latest news and events</p>
+                        <button class="social-btn">Follow</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <span>© 2025 IUCEE-RIT Student Chapter. All rights reserved.</span>
+                    <span>Built with ❤️ by IUCEE-RIT Tech Team | Powered by HTML, CSS & JavaScript</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Enrollment Button -->
+    <div class="floating-btn-container">
+        <button class="floating-btn" id="enrollBtn">
+            🎓 Enroll Now
+        </button>
+    </div>
+
+    <!-- Application Form Modal -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Application Form</h2>
+                <button class="modal-close" id="modalClose">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <form id="applicationForm">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prn">PRN/Roll Number *</label>
+                        <input type="text" id="prn" name="prn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="branch">Branch/Department *</label>
+                        <select id="branch" name="branch" required>
+                            <option value="">Select Branch</option>
+                            <option value="computer">Computer Engineering</option>
+                            <option value="electronics">Electronics Engineering</option>
+                            <option value="mechanical">Mechanical Engineering</option>
+                            <option value="civil">Civil Engineering</option>
+                            <option value="electrical">Electrical Engineering</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Academic Year *</label>
+                        <select id="year" name="year" required>
+                            <option value="">Select Year</option>
+                            <option value="first">First Year</option>
+                            <option value="second">Second Year</option>
+                            <option value="third">Third Year</option>
+                            <option value="final">Final Year</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="motivation">Why do you want to join IUCEE-RIT? *</label>
+                        <textarea id="motivation" name="motivation" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Previous Experience (Optional)</label>
+                        <textarea id="experience" name="experience" rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn-primary">Submit Application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Modal -->
+    <div class="modal-overlay hidden" id="galleryModalOverlay">
+        <div class="modal gallery-modal">
+            <div class="modal-header">
+                <h2 id="galleryModalTitle">Gallery</h2>
+                <button class="modal-close" id="galleryModalClose">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="gallery-modal-grid" id="galleryModalGrid">
+                    <!-- Gallery modal content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="scripts/data.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
