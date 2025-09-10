@@ -1,6 +1,6 @@
 // app/api/apply/route.js
 
-import { createClient } from '../../../lib/supabase.js';
+import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server'; // Import NextResponse
 
 export async function POST(req) {
