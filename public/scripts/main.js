@@ -236,6 +236,34 @@ class IUCEEWebsite {
     }
   }
 
+  async checkEnrollmentStatus() {
+    try {
+      const response = await fetch('/api/button-status');
+      if (!response.ok) {
+        throw new Error('Failed to fetch status');
+      }
+      const status = await response.json();
+      const enrollBtn = document.getElementById('enrollBtn');
+
+      if (enrollBtn) {
+        if (status.enabled === false) {
+          enrollBtn.disabled = true;
+          enrollBtn.textContent = 'Enrollment Closed';
+        } else {
+          enrollBtn.disabled = false;
+          enrollBtn.textContent = '🎓 Enroll Now';
+        }
+      }
+    } catch (error) {
+      console.error("Could not check enrollment status:", error);
+      // Keep the button enabled by default if the check fails
+      const enrollBtn = document.getElementById('enrollBtn');
+      if (enrollBtn) {
+        enrollBtn.disabled = false;
+      }
+    }
+  }
+
   async handleFormSubmit(e) { // Make the function async
     e.preventDefault();
 

@@ -1,5 +1,8 @@
 // app/api/export/route.js
 
+// Add this line to force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 import { Parser } from 'json2csv';

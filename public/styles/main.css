@@ -913,6 +913,18 @@ a:link {
   z-index: 1000;
 }
 
+/* styles/main.css */
+
+.floating-btn:disabled {
+  background-color: #6b7280;
+  /* A gray color */
+  color: #d1d5db;
+  cursor: not-allowed;
+  animation: none;
+  /* Turn off the pulse animation */
+  box-shadow: none;
+}
+
 .floating-btn {
   background: #7c3aed;
   color: white;
