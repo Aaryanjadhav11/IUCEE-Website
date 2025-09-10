@@ -41,7 +41,7 @@ export default function Page() {
     name: "",
     email: "",
     phone: "",
-    prn: "", // Replaced college field with PRN field
+    prn: "",
     branch: "",
     year: "",
     motivation: "",
@@ -87,7 +87,7 @@ export default function Page() {
       name: "",
       email: "",
       phone: "",
-      prn: "", // Updated to use PRN instead of college
+      prn: "",
       branch: "",
       year: "",
       motivation: "",
@@ -604,9 +604,8 @@ export default function Page() {
               {sdgGoals.slice(0, 6).map((_, index) => (
                 <button
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    Math.floor(sdgScrollPosition / 3) === index ? "bg-purple-600" : "bg-purple-300"
-                  }`}
+                  className={`w-2 h-2 rounded-full transition-colors ${Math.floor(sdgScrollPosition / 3) === index ? "bg-purple-600" : "bg-purple-300"
+                    }`}
                   onClick={() => setSdgScrollPosition(index * 3)}
                 />
               ))}
@@ -709,9 +708,8 @@ export default function Page() {
                 <button
                   key={index}
                   onClick={() => setGalleryIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    index === galleryIndex ? "bg-purple-600" : "bg-purple-300"
-                  }`}
+                  className={`w-3 h-3 rounded-full transition-colors ${index === galleryIndex ? "bg-purple-600" : "bg-purple-300"
+                    }`}
                 />
               ))}
             </div>
@@ -722,9 +720,8 @@ export default function Page() {
             {galleryImages.map((image, index) => (
               <Card
                 key={index}
-                className={`border-purple-200 shadow-lg overflow-hidden cursor-pointer transition-all hover:shadow-xl ${
-                  index === galleryIndex ? "ring-2 ring-purple-600" : ""
-                }`}
+                className={`border-purple-200 shadow-lg overflow-hidden cursor-pointer transition-all hover:shadow-xl ${index === galleryIndex ? "ring-2 ring-purple-600" : ""
+                  }`}
                 onClick={() => openGalleryModal(index)}
               >
                 <img src={image.src || "/placeholder.svg"} alt={image.alt} className="w-full h-48 object-cover" />

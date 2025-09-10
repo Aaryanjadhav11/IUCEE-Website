@@ -15,11 +15,6 @@ class IUCEEWebsite {
     this.setupEventListeners()
     this.initializeComponents()
     this.startAnimations()
-
-    // Initialize Lucide icons
-    if (typeof window.lucide !== "undefined") {
-      window.lucide.createIcons()
-    }
   }
 
   setupEventListeners() {
@@ -96,6 +91,16 @@ class IUCEEWebsite {
     if (galleryModalClose) {
       galleryModalClose.addEventListener("click", () => this.closeGalleryModal())
     }
+
+    document.querySelectorAll('.social-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const platform = e.currentTarget.dataset.platform
+        const urls = {
+          instagram: 'https://www.instagram.com/iucee_rit_/',
+        }
+        window.open(urls[platform], '_blank')
+      })
+    })
   }
 
   initializeComponents() {
@@ -104,6 +109,32 @@ class IUCEEWebsite {
     this.renderSDGCards()
     this.renderGallery()
     this.renderClubMembers()
+    this.renderSocialMediaCards()
+  }
+
+  renderSocialMediaCards() {
+    const socialCards = document.getElementById("socialCards")
+    if (!socialCards) return
+
+    socialCards.innerHTML = window.socialMedia
+      .map(social => `
+        <a href="${social.url}" target="_blank" rel="noopener noreferrer" class="social-card-link">
+          <div class="social-card">
+            <i data-lucide="${social.icon}" style="stroke:${social.color};"></i>
+            <h4>${social.name}</h4>
+            <p>${social.description}</p>
+            <div class="social-btn">
+              ${social.name === 'LinkedIn' ? 'Connect' : 'Follow'}
+            </div>
+          </div>
+        </a>
+      `)
+      .join("")
+
+    // Re-initialize Lucide icons
+    if (typeof window.lucide !== "undefined") {
+      window.lucide.createIcons()
+    }
   }
 
   startAnimations() {
@@ -281,6 +312,7 @@ class IUCEEWebsite {
     sdgScroll.innerHTML = extendedGoals
       .map(
         (goal) => `
+          <a href="https://sdgs.un.org/goals/goal${String(goal.id)}">
             <div class="card sdg-card">
                 <div class="card-header">
                     <div class="sdg-header">
@@ -295,6 +327,7 @@ class IUCEEWebsite {
                     <p class="sdg-description">${goal.description}</p>
                 </div>
             </div>
+          </a>
         `,
       )
       .join("")
