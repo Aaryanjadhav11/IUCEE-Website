@@ -23,6 +23,8 @@ export async function GET() {
             .from('settings')
             .select('value')
             .eq('key', 'enroll_button')
+            .order('created_at', { ascending: false })
+            .limit(1)
             .single();
 
         if (error) {
