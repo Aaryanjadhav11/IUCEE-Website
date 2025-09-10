@@ -1,9 +1,10 @@
 // app/api/button-status/route.js
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js'; // For the secure POST function
 import { NextResponse } from 'next/server';
-import { supa } from '@supabase/supabase-js';
+import { supa } from '../../../lib/supabase.js'; // For the public GET function
 
+// This function is public and uses the client-side `supa` instance from your lib file.
 export async function GET() {
     try {
         const { data, error } = await supa
@@ -13,9 +14,8 @@ export async function GET() {
             .single();
 
         if (error) {
-            // If no row is found, it's not an error, just return a default value
             if (error.code === 'PGRST116') {
-                return NextResponse.json({ enabled: true }); // Default to enabled
+                return NextResponse.json({ enabled: true }); // Default to enabled if no setting is found
             }
             throw error;
         }
@@ -27,24 +27,23 @@ export async function GET() {
     }
 }
 
+
+// This function is an admin action and creates its own secure client.
 export async function POST(req) {
     try {
-        // 1. Check for your custom admin key
         const adminKey = req.headers.get('x-admin-key');
         if (adminKey !== process.env.ADMIN_KEY) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        // 2. Create a secure, server-only Supabase client for this admin action
         const supabaseAdmin = createClient(
             process.env.SUPABASE_URL,
             process.env.SUPABASE_SERVICE_ROLE_KEY,
             { auth: { persistSession: false } }
         );
 
-        const value = await req.json(); // expect { enabled: true/false }
+        const value = await req.json();
 
-        // 3. Use the secure admin client to write to the database
         const { error } = await supabaseAdmin
             .from('settings')
             .upsert({ key: 'enroll_button', value });
