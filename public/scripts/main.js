@@ -15,6 +15,7 @@ class IUCEEWebsite {
     this.setupEventListeners()
     this.initializeComponents()
     this.startAnimations()
+    this.checkEnrollmentStatus();
   }
 
   setupEventListeners() {
