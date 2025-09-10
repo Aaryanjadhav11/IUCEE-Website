@@ -1,4 +1,8 @@
-/* Reset and Base Styles */
+/* 1. RESET & BASE STYLES
+ * ----------------------------------------------
+ * These styles reset default browser styling for a consistent look.
+ * It also defines base styles for the body, links, and typography.
+*/
 * {
   margin: 0;
   padding: 0;
@@ -13,6 +17,28 @@ body {
   min-height: 100vh;
 }
 
+a,
+a.card,
+a.project-card,
+.nav-link,
+.nav-link-mobile,
+.footer-nav a {
+  text-decoration: none;
+}
+
+a.card,
+a.project-card {
+  color: inherit;
+}
+
+a.project-card .project-description {
+  color: #6b7280;
+}
+
+/* 2. LAYOUT & SECTION STYLES
+ * ----------------------------------------------
+ * Defines the main container width and basic styling for content sections.
+*/
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -44,7 +70,10 @@ body {
   display: none !important;
 }
 
-/* Header Styles */
+/* 3. HEADER & NAVIGATION
+ * ----------------------------------------------
+ * Styles for the fixed header, logo, and navigation (desktop and mobile).
+*/
 .header {
   position: fixed;
   top: 0;
@@ -101,13 +130,14 @@ body {
   gap: 2rem;
 }
 
-.nav-link {
+.nav-link,
+.nav-link-mobile {
   color: #374151;
-  text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link-mobile:hover {
   color: #7c3aed;
 }
 
@@ -130,17 +160,11 @@ body {
   gap: 1rem;
 }
 
-.nav-link-mobile {
-  color: #374151;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.nav-link-mobile:hover {
-  color: #7c3aed;
-}
-
-/* Hero Section */
+/* 4. HERO SECTION & ANIMATIONS
+ * ----------------------------------------------
+ * Styles for the main hero area, including parallax backgrounds and
+ * animated floating elements.
+*/
 .hero-section {
   position: relative;
   min-height: 100vh;
@@ -151,6 +175,35 @@ body {
   padding-top: 4rem;
 }
 
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 0 1rem;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  display: block;
+  color: #7c3aed;
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  color: #374151;
+  margin-bottom: 2rem;
+}
+
+/* Parallax Backgrounds */
 .parallax-bg-1,
 .parallax-bg-2,
 .parallax-bg-3 {
@@ -174,6 +227,7 @@ body {
   background: linear-gradient(90deg, transparent 0%, rgba(124, 58, 237, 0.1) 50%, transparent 100%);
 }
 
+/* Floating Elements */
 .floating-elements {
   position: absolute;
   inset: 0;
@@ -236,35 +290,67 @@ body {
   }
 }
 
-.hero-content {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  padding: 0 1rem;
-  max-width: 64rem;
-  margin: 0 auto;
+/* 5. CARD & REUSABLE COMPONENTS
+ * ----------------------------------------------
+ * General styling for cards and other reusable UI elements like badges.
+*/
+
+/* Reusing .team-grid for a responsive layout */
+.projects-grid,
+.alumni-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
 }
 
-.hero-title {
-  font-size: 3rem;
+/* Styling for project cards */
+.project-card {
+  text-align: left;
+}
+
+.project-image {
+  width: 100%;
+  height: 12rem;
+  /* 192px */
+  object-fit: cover;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.project-card h3 {
+  font-size: 1.25rem;
   font-weight: bold;
   color: #1f2937;
-  margin-bottom: 1.5rem;
-  line-height: 1.2;
+  margin-bottom: 0.5rem;
 }
 
-.hero-subtitle {
-  display: block;
-  color: #7c3aed;
+.project-description {
+  color: #6b7280;
 }
 
-.hero-description {
+/* Styling for alumni cards */
+.alumni-card {
+  text-align: center;
+}
+
+.alumni-image {
+  width: 8rem;
+  /* 128px */
+  height: 8rem;
+  /* 128px */
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1rem;
+  border: 4px solid #e5e7eb;
+}
+
+.alumni-card h3 {
   font-size: 1.25rem;
-  color: #374151;
-  margin-bottom: 2rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
 }
 
-/* Card Styles */
 .card {
   background: white;
   border: 1px solid #e5e7eb;
@@ -293,6 +379,23 @@ body {
 .card-content {
   padding: 1.5rem;
 }
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: rgba(124, 58, 237, 0.1);
+  color: #7c3aed;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+
+/* 6. PAGE-SPECIFIC SECTIONS
+ * ----------------------------------------------
+ * Styles for the main content sections of the page.
+*/
 
 /* Vision & Mission Section */
 .vision-grid {
@@ -340,17 +443,6 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-}
-
-.badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  background: rgba(124, 58, 237, 0.1);
-  color: #7c3aed;
-  border: 1px solid rgba(124, 58, 237, 0.3);
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 500;
 }
 
 /* Timeline Section */
@@ -462,7 +554,7 @@ body {
   color: #6b7280;
 }
 
-/* SDG Section */
+/* SDG Slider Section */
 .sdg-section {
   background: rgba(124, 58, 237, 0.05);
 }
@@ -722,7 +814,10 @@ body {
   font-weight: 500;
 }
 
-/* Footer */
+/* 7. FOOTER & SOCIAL MEDIA
+ * ----------------------------------------------
+ * Styles for the page footer, including layout, links, and social media cards.
+*/
 .footer {
   background: #1f2937;
   color: white;
@@ -782,16 +877,11 @@ body {
 
 .footer-nav a {
   color: #d1d5db;
-  text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footer-nav a:hover {
   color: #c4b5fd;
-}
-
-a:link {
-  text-decoration: none;
 }
 
 .members-list {
@@ -819,7 +909,6 @@ a:link {
   font-size: 0.75rem;
 }
 
-/* Social Media Section */
 .social-media-section {
   margin-top: 3rem;
   padding-top: 2rem;
@@ -905,24 +994,15 @@ a:link {
   text-align: center;
 }
 
-/* Floating Button */
+/* 8. FLOATING ACTION BUTTON (FAB)
+ * ----------------------------------------------
+ * Styles for the fixed-position button in the bottom-right corner.
+*/
 .floating-btn-container {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
   z-index: 1000;
-}
-
-/* styles/main.css */
-
-.floating-btn:disabled {
-  background-color: #6b7280;
-  /* A gray color */
-  color: #d1d5db;
-  cursor: not-allowed;
-  animation: none;
-  /* Turn off the pulse animation */
-  box-shadow: none;
 }
 
 .floating-btn {
@@ -950,6 +1030,7 @@ a:link {
   color: #6b7280;
   cursor: not-allowed;
   animation: none;
+  box-shadow: none;
 }
 
 @keyframes pulse {
@@ -964,7 +1045,10 @@ a:link {
   }
 }
 
-/* Modal Styles */
+/* 9. MODAL & FORM STYLES
+ * ----------------------------------------------
+ * Styles for pop-up modals and the form elements within them.
+*/
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -1129,7 +1213,11 @@ a:link {
   margin: 0;
 }
 
-/* Responsive Design */
+/* 10. RESPONSIVE DESIGN
+ * ----------------------------------------------
+ * Media queries to adjust the layout for different screen sizes,
+ * ensuring the site is mobile-friendly.
+*/
 @media (max-width: 768px) {
   .nav-desktop {
     display: none;
@@ -1139,10 +1227,7 @@ a:link {
     display: block;
   }
 
-  .hero-title {
-    font-size: 2rem;
-  }
-
+  .hero-title,
   .section-title {
     font-size: 2rem;
   }

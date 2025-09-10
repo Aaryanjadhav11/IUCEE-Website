@@ -129,12 +129,9 @@ window.galleryImages = [
     description: "VNR Vignana Jyothi Institute of Engineering & Technology, Telangana",
     alt: "IASF 2025 at Vallurupalli Nageswara Rao Vignana Jyothi Institute, Hyderabad",
     fullGallery: [
-      { src: "/images/iasf-hyderabad/", type: "image", caption: "Traditional attire group photo at VNR VJIET" },
-      { src: "/images/iasf-hyderabad/", type: "image", caption: "Cultural program highlights" },
-      { src: "/images/iasf-hyderabad/", type: "image", caption: "Technical exhibition" },
-      { src: "/images/iasf-hyderabad/", type: "image", caption: "Keynote speech session" },
-      { src: "/images/iasf-hyderabad/", type: "image", caption: "Innovation showcase" },
-      { src: "/images/iasf-hyderabad/", type: "image", caption: "Closing ceremony" },
+      { src: "/images/iasf-hyderabad/1.jpg", type: "image", caption: "Traditional attire group photo at VNR VJIET" },
+      { src: "/images/iasf-hyderabad/2.jpg", type: "image", caption: "Cultural program highlights" },
+      { src: "/images/iasf-hyderabad/3.jpg", type: "image", caption: "Technical exhibition" }
     ],
   },
   {
@@ -182,3 +179,102 @@ window.socialMedia = [
     description: "See our latest photos and stories"
   }
 ]
+
+window.alumni = [
+  {
+    name: "Pawan Kamble",
+    graduationYear: 2022,
+    department: "Computer Engineering",
+    currentRole: "Student at University of Sydney, Australia",
+    link: "https://www.linkedin.com/in/priyasharma-example",
+    image: "profiles/alumni1.jpg"
+  },
+  {
+    name: "Shubham katekar",
+    graduationYear: 2021,
+    department: "Mechanical Engineering",
+    currentRole: "Designation: Co-founder at Techsyne Consulting",
+    link: "https://www.linkedin.com/in/rohandesai-example",
+    image: "profiles/alumni2.jpg"
+  },
+  {
+    name: "Sejal Patil",
+    graduationYear: 2021,
+    department: "Mechanical Engineering",
+    currentRole: "Director at Pullpubb",
+    link: "https://www.linkedin.com/in/rohandesai-example",
+    image: "profiles/alumni3.jpg"
+  },
+  {
+    name: "Tanmay Bhosle",
+    graduationYear: 2021,
+    department: "MSc Advanced Engineering Management",
+    Specialization: "Project Management",
+    currentRole: "Part Planning Engineer @ MAN Truck & Bus India Pvt Ltd. ",
+    link: "https://www.linkedin.com/in/rohandesai-example",
+    image: "profiles/alumni4.jpg"
+  },
+  {
+    name: "KUNAL ASHTEKAR",
+    graduationYear: 2021,
+    department: "MSc Advanced Engineering Management",
+    currentRole: "PROGRAMMER ANALYIST @ COGNIZANT",
+    link: "https://www.linkedin.com/in/rohandesai-example",
+    image: "profiles/alumni5.png"
+  },
+  {
+    name: "HARSH PATIL",
+    graduationYear: 2021,
+    department: "MSc Advanced Engineering Management",
+    currentRole: "DATA ANALYIST @ CLIENT SOLUTIONS",
+    link: "https://www.linkedin.com/in/rohandesai-example",
+    image: "profiles/alumni6.png"
+  },
+];
+
+window.projects = [
+  {
+    title: "Smart Irrigation System",
+    year: 2024,
+    description: "An IoT-based system to optimize water usage for local farms, increasing crop yield by 20%.",
+    technologies: ["Arduino", "IoT", "Soil Sensors", "Python"],
+    relatedSDGs: [2, 6, 15], // Corresponds to the ID in sdgGoals
+    link: "https://github.com/iucee-rit/smart-irrigation",
+    image: "/images/project-irrigation.jpg"
+  },
+  {
+    title: "Portable Water Purification Unit",
+    year: 2023,
+    description: "A low-cost, portable device designed to provide clean drinking water in rural areas during emergencies.",
+    technologies: ["UV Filtration", "3D Printing", "Solar Power"],
+    relatedSDGs: [3, 6, 11],
+    link: "https://github.com/iucee-rit/water-purifier",
+    image: "/images/project-water.jpg"
+  },
+  {
+    title: "AI-Powered Waste Sorter",
+    year: 2023,
+    description: "Developed a machine learning model to automatically sort recyclable materials, improving efficiency at local waste management facilities.",
+    technologies: ["TensorFlow", "OpenCV", "Raspberry Pi"],
+    relatedSDGs: [11, 12, 13],
+    link: null, // Can be null if no link is available
+    image: "/images/project-waste.jpg"
+  }
+];
+
+window.teamMembers = [
+  {
+    name: "Krishna Vedula",
+    role: "Director of IUCEE Student Chapter",
+    description: "Leading the vision for innovative engineering education",
+    image: "profiles/krishna.png",
+    link: "https://www.linkedin.com/in/krishna-vedula-387aa62/"
+  },
+  {
+    name: "Mr. Mayur Maske",
+    role: "Faculty Coordinator IUCEE RIT",
+    description: "Guiding students towards academic excellence",
+    image: "profiles/maske.png",
+    link: "https://www.linkedin.com/in/mayur-maske-7349a0111/"
+  }
+];

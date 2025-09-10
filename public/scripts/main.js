@@ -1,5 +1,6 @@
 // Main JavaScript functionality
 class IUCEEWebsite {
+  // ---------- Init Functions -------------
   constructor() {
     this.parallaxOffset = 0
     this.enrollmentOpen = true
@@ -92,16 +93,6 @@ class IUCEEWebsite {
     if (galleryModalClose) {
       galleryModalClose.addEventListener("click", () => this.closeGalleryModal())
     }
-
-    document.querySelectorAll('.social-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        const platform = e.currentTarget.dataset.platform
-        const urls = {
-          instagram: 'https://www.instagram.com/iucee_rit_/',
-        }
-        window.open(urls[platform], '_blank')
-      })
-    })
   }
 
   initializeComponents() {
@@ -111,31 +102,9 @@ class IUCEEWebsite {
     this.renderGallery()
     this.renderClubMembers()
     this.renderSocialMediaCards()
-  }
-
-  renderSocialMediaCards() {
-    const socialCards = document.getElementById("socialCards")
-    if (!socialCards) return
-
-    socialCards.innerHTML = window.socialMedia
-      .map(social => `
-        <a href="${social.url}" target="_blank" rel="noopener noreferrer" class="social-card-link">
-          <div class="social-card">
-            <i data-lucide="${social.icon}" style="stroke:${social.color};"></i>
-            <h4>${social.name}</h4>
-            <p>${social.description}</p>
-            <div class="social-btn">
-              ${social.name === 'LinkedIn' ? 'Connect' : 'Follow'}
-            </div>
-          </div>
-        </a>
-      `)
-      .join("")
-
-    // Re-initialize Lucide icons
-    if (typeof window.lucide !== "undefined") {
-      window.lucide.createIcons()
-    }
+    this.renderTeam();
+    this.renderAlumni();
+    this.renderProjects();
   }
 
   startAnimations() {
@@ -150,35 +119,6 @@ class IUCEEWebsite {
       this.galleryIndex = (this.galleryIndex + 1) % window.galleryImages.length
       this.updateGalleryDisplay()
     }, 5000)
-  }
-
-  handleScroll() {
-    const scrolled = window.pageYOffset
-    this.parallaxOffset = scrolled * -0.5
-
-    // Update parallax backgrounds
-    const parallaxBg1 = document.querySelector(".parallax-bg-1")
-    const parallaxBg2 = document.querySelector(".parallax-bg-2")
-    const parallaxBg3 = document.querySelector(".parallax-bg-3")
-
-    if (parallaxBg1) {
-      parallaxBg1.style.transform = `translateY(${this.parallaxOffset * 0.8}px)`
-    }
-    if (parallaxBg2) {
-      parallaxBg2.style.transform = `translateY(${this.parallaxOffset * 0.3}px)`
-    }
-    if (parallaxBg3) {
-      parallaxBg3.style.transform = `translateY(${this.parallaxOffset * 0.6}px)`
-    }
-
-    // Update floating elements
-    const floatingElements = document.querySelectorAll(".floating-element")
-    floatingElements.forEach((element, index) => {
-      const multiplier = 0.01 + index * 0.003
-      const xOffset = Math.sin(scrolled * multiplier) * (20 + index * 5)
-      const yOffset = this.parallaxOffset * (0.2 + index * 0.1)
-      element.style.transform = `translate(${xOffset}px, ${yOffset}px)`
-    })
   }
 
   toggleMobileMenu() {
@@ -213,6 +153,7 @@ class IUCEEWebsite {
     }
   }
 
+  // ------------ Application Form ------------
   openApplicationForm() {
     if (!this.enrollmentOpen) return
 
@@ -302,6 +243,32 @@ class IUCEEWebsite {
       // Re-enable the button whether it succeeded or failed
       submitBtn.disabled = false;
       submitBtn.textContent = 'Submit Application';
+    }
+  }
+
+  // ------------ Rendering ------------
+  renderSocialMediaCards() {
+    const socialCards = document.getElementById("socialCards")
+    if (!socialCards) return
+
+    socialCards.innerHTML = window.socialMedia
+      .map(social => `
+        <a href="${social.url}" target="_blank" rel="noopener noreferrer" class="social-card-link">
+          <div class="social-card">
+            <i data-lucide="${social.icon}" style="stroke:${social.color};"></i>
+            <h4>${social.name}</h4>
+            <p>${social.description}</p>
+            <div class="social-btn">
+              ${social.name === 'LinkedIn' ? 'Connect' : 'Follow'}
+            </div>
+          </div>
+        </a>
+      `)
+      .join("")
+
+    // Re-initialize Lucide icons
+    if (typeof window.lucide !== "undefined") {
+      window.lucide.createIcons()
     }
   }
 
@@ -397,26 +364,6 @@ class IUCEEWebsite {
     ).join("")
   }
 
-  updateSDGScroll() {
-    const sdgScroll = document.getElementById("sdgScroll")
-    const indicators = document.querySelectorAll(".sdg-indicator")
-
-    if (sdgScroll) {
-      const translateX = -this.sdgScrollPosition * 320 * 3 // 320px card width * 3 cards
-      sdgScroll.style.transform = `translateX(${translateX}px)`
-    }
-
-    // Update indicators
-    indicators.forEach((indicator, index) => {
-      indicator.classList.toggle("active", index === this.sdgScrollPosition)
-    })
-  }
-
-  setSDGPosition(position) {
-    this.sdgScrollPosition = position
-    this.updateSDGScroll()
-  }
-
   renderGallery() {
     const gallerySlider = document.getElementById("gallerySlider")
     const galleryIndicators = document.getElementById("galleryIndicators")
@@ -465,6 +412,103 @@ class IUCEEWebsite {
         `,
       )
       .join("")
+  }
+
+  renderClubMembers() {
+    const membersList = document.getElementById("membersList")
+    if (!membersList) return
+
+    membersList.innerHTML = window.clubMembers
+      .map(
+        (member) => `
+            <div class="member-item">
+                <div class="member-name">${member.name}</div>
+                <div class="member-role">${member.role}</div>
+                <div class="member-details">${member.department} - ${member.year}</div>
+            </div>
+        `,
+      )
+      .join("")
+  }
+
+  renderAlumni() {
+    const alumniGrid = document.getElementById("alumniGrid");
+    if (!alumniGrid) return;
+
+    alumniGrid.className = 'team-grid'; // Reuse existing grid class
+
+    alumniGrid.innerHTML = window.alumni.map(alumnus => `
+      <a href="${alumnus.link}" target="_blank" rel="noopener noreferrer" class="card achievement-card">
+          <div class="card-content">
+              <img src="${alumnus.image}" alt="${alumnus.name}" class="alumni-image">
+              <h3>${alumnus.name}</h3>
+              <p class="team-role">${alumnus.currentRole}</p> 
+          </div>
+      </a>
+    `).join('');
+  }
+
+  renderProjects() {
+    const projectsGrid = document.getElementById("projectsGrid");
+    if (!projectsGrid) return;
+
+    projectsGrid.className = 'team-grid'; // Reuse existing grid class
+
+    projectsGrid.innerHTML = window.projects.map(project => {
+      // Determine if the card should be a clickable link or a static div
+      const isClickable = project.githubLink;
+      const Tag = isClickable ? 'a' : 'div';
+      const linkAttrs = isClickable ? `href="${project.githubLink}" target="_blank" rel="noopener noreferrer"` : '';
+
+      return `
+        <${Tag} ${linkAttrs} class="card project-card hover-lift">
+            <img src="${project.image}" alt="${project.title}" class="project-image">
+            <div class="card-content">
+                <h3>${project.title}</h3>
+                <p class="project-description">${project.description}</p>
+            </div>
+        </${Tag}>
+      `;
+    }).join('');
+  }
+
+  renderTeam() {
+    const teamGrid = document.getElementById("teamGrid");
+    if (!teamGrid) return;
+
+    teamGrid.innerHTML = window.teamMembers.map(member => `
+      <a href="${member.link}" target="_blank" rel="noopener noreferrer">
+        <div class="card team-card">
+          <div class="card-content">
+            <img src="${member.image}" alt="Profile of ${member.name}">
+            <h3>${member.name}</h3>
+            <p class="team-role">${member.role}</p>
+            <p class="team-description">${member.description}</p>
+          </div>
+        </div>
+      </a>
+    `).join('');
+  }
+
+  // ------------ Helper Functions ------------
+  setSDGPosition(position) {
+    this.sdgScrollPosition = position
+    this.updateSDGScroll()
+  }
+
+  updateSDGScroll() {
+    const sdgScroll = document.getElementById("sdgScroll")
+    const indicators = document.querySelectorAll(".sdg-indicator")
+
+    if (sdgScroll) {
+      const translateX = -this.sdgScrollPosition * 320 * 3 // 320px card width * 3 cards
+      sdgScroll.style.transform = `translateX(${translateX}px)`
+    }
+
+    // Update indicators
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle("active", index === this.sdgScrollPosition)
+    })
   }
 
   updateGalleryDisplay() {
@@ -536,21 +580,33 @@ class IUCEEWebsite {
     }
   }
 
-  renderClubMembers() {
-    const membersList = document.getElementById("membersList")
-    if (!membersList) return
+  handleScroll() {
+    const scrolled = window.pageYOffset
+    this.parallaxOffset = scrolled * -0.5
 
-    membersList.innerHTML = window.clubMembers
-      .map(
-        (member) => `
-            <div class="member-item">
-                <div class="member-name">${member.name}</div>
-                <div class="member-role">${member.role}</div>
-                <div class="member-details">${member.department} - ${member.year}</div>
-            </div>
-        `,
-      )
-      .join("")
+    // Update parallax backgrounds
+    const parallaxBg1 = document.querySelector(".parallax-bg-1")
+    const parallaxBg2 = document.querySelector(".parallax-bg-2")
+    const parallaxBg3 = document.querySelector(".parallax-bg-3")
+
+    if (parallaxBg1) {
+      parallaxBg1.style.transform = `translateY(${this.parallaxOffset * 0.8}px)`
+    }
+    if (parallaxBg2) {
+      parallaxBg2.style.transform = `translateY(${this.parallaxOffset * 0.3}px)`
+    }
+    if (parallaxBg3) {
+      parallaxBg3.style.transform = `translateY(${this.parallaxOffset * 0.6}px)`
+    }
+
+    // Update floating elements
+    const floatingElements = document.querySelectorAll(".floating-element")
+    floatingElements.forEach((element, index) => {
+      const multiplier = 0.01 + index * 0.003
+      const xOffset = Math.sin(scrolled * multiplier) * (20 + index * 5)
+      const yOffset = this.parallaxOffset * (0.2 + index * 0.1)
+      element.style.transform = `translate(${xOffset}px, ${yOffset}px)`
+    })
   }
 }
 
