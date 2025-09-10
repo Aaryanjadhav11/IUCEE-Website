@@ -7,21 +7,17 @@
     <title>IUCEE-RIT Student Chapter</title>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/components.css">
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css" rel="stylesheet"> -->
 </head>
 
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="header-container">
             <div class="header-content">
                 <div class="logo">
-                    <!-- <div class="logo-icon"></div> -->
-                    <img src="profiles\logo.png" , class="logo-icon">
+                    <img src="profiles/logo.png" class="logo-icon" alt="IUCEE-RIT Logo">
                     <span class="logo-text">IUCEE-RIT</span>
                 </div>
 
-                <!-- Desktop Navigation -->
                 <nav class="nav-desktop">
                     <a href="#vision" class="nav-link">Vision</a>
                     <a href="#achievements" class="nav-link">Achievements</a>
@@ -31,34 +27,32 @@
                     <a href="#timeline" class="nav-link">Journey</a>
                     <a href="#sdg" class="nav-link">UN SDGs</a>
                     <a href="#gallery" class="nav-link">Gallery</a>
-                    <a href="https://iucee.org/" class="nav-link">IUCEE</a>
+                    <a href="https://iucee.org/" class="nav-link" target="_blank" rel="noopener noreferrer">IUCEE</a>
                 </nav>
 
-                <!-- Mobile Menu Button -->
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
                     <i data-lucide="menu" class="menu-icon"></i>
                     <i data-lucide="x" class="close-icon hidden"></i>
                 </button>
             </div>
 
-            <!-- Mobile Navigation -->
             <div class="nav-mobile hidden" id="mobileNav">
                 <nav class="nav-mobile-content">
                     <a href="#vision" class="nav-link-mobile">Vision</a>
                     <a href="#timeline" class="nav-link-mobile">Journey</a>
                     <a href="#achievements" class="nav-link-mobile">Achievements</a>
-                    <a href="#alumni" class="nav-link">Alumni</a>
-                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#alumni" class="nav-link-mobile">Alumni</a>
+                    <a href="#projects" class="nav-link-mobile">Projects</a>
                     <a href="#sdg" class="nav-link-mobile">UN SDGs</a>
                     <a href="#team" class="nav-link-mobile">Team</a>
                     <a href="#gallery" class="nav-link-mobile">Gallery</a>
-                    <a href="https://iucee.org/" class="nav-link">IUCEE</a>
+                    <a href="https://iucee.org/" class="nav-link-mobile" target="_blank"
+                        rel="noopener noreferrer">IUCEE</a>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section id="home" class="hero-section">
         <div class="parallax-bg-1"></div>
         <div class="parallax-bg-2"></div>
@@ -83,7 +77,6 @@
         </div>
     </section>
 
-    <!-- Vision & Mission Section -->
     <section id="vision" class="section">
         <div class="container">
             <div class="section-header">
@@ -173,7 +166,6 @@
         </div>
     </section>
 
-    <!-- Timeline Section -->
     <section id="timeline" class="section timeline-section">
         <div class="container">
             <div class="section-header">
@@ -184,87 +176,129 @@
             <div class="timeline">
                 <div class="timeline-line"></div>
                 <div class="timeline-events" id="timelineEvents">
-                    <!-- Timeline events will be populated by JavaScript -->
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section">
+    <section id="projects" class="section scroll-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Our Impactful Projects</h2>
                 <p class="section-subtitle">Innovating for a Sustainable Future</p>
             </div>
-            <div class="projects-grid" id="projectsGrid">
-                <!-- projects will be populated by JavaScript -->
+            <div class="scroller-wrapper">
+                <div class="scroll-container">
+                    <div class="scroll-inner" id="projectsScroll">
+                    </div>
+                </div>
+                <button class="scroll-nav scroll-prev" id="projectsPrev" aria-label="Previous Project">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="scroll-nav scroll-next" id="projectsNext" aria-label="Next Project">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+            </div>
+            <div class="scroll-indicators" id="projectsIndicators">
             </div>
         </div>
     </section>
 
-    <!-- Achievements Section -->
-    <section id="achievements" class="section">
+    <section id="achievements" class="section scroll-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Our Achievements</h2>
                 <p class="section-subtitle">Making a Difference Through Engineering Excellence</p>
             </div>
-
-            <div class="achievements-grid" id="achievementsGrid">
-                <!-- Achievements will be populated by JavaScript -->
+            <div class="scroller-wrapper">
+                <div class="scroll-container">
+                    <div class="scroll-inner" id="achievementsScroll">
+                    </div>
+                </div>
+                <button class="scroll-nav scroll-prev" id="achievementsPrev" aria-label="Previous Achievement">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="scroll-nav scroll-next" id="achievementsNext" aria-label="Next Achievement">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+            </div>
+            <div class="scroll-indicators" id="achievementsIndicators">
             </div>
         </div>
     </section>
 
-    <!-- UN SDG Section -->
-    <section id="sdg" class="section sdg-section">
+
+    <section id="sdg" class="section scroll-section sdg-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">UN Sustainable Development Goals</h2>
-                <p class="section-subtitle">Our Clubs Focus on Global Impact</p>
+                <p class="section-subtitle">Our Club's Focus on Global Impact</p>
             </div>
-
-            <div class="sdg-container">
-                <div class="sdg-scroll" id="sdgScroll">
-                    <!-- SDG cards will be populated by JavaScript -->
+            <div class="scroller-wrapper">
+                <div class="scroll-container">
+                    <div class="scroll-inner" id="sdgScroll">
+                    </div>
                 </div>
-                <div class="sdg-indicators" id="sdgIndicators">
-                    <!-- Indicators will be populated by JavaScript -->
-                </div>
+                <button class="scroll-nav scroll-prev" id="sdgPrev" aria-label="Previous SDG">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="scroll-nav scroll-next" id="sdgNext" aria-label="Next SDG">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+            </div>
+            <div class="scroll-indicators" id="sdgIndicators">
             </div>
         </div>
     </section>
 
-    <!-- Team Section -->
-    <section id="team" class="section">
+    <section id="team" class="section scroll-section">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-parallax>
                 <h2 class="section-title">Our Leadership</h2>
-                <p class="section-subtitle">Meet the Visionaries Behind IUCEE-RIT</p>
+                <p class="section-subtitle">Meet the Visionaries & Student Leaders Behind IUCEE-RIT</p>
             </div>
 
-            <div class="team-grid" id="teamGrid">
-                <!-- team will be populated by JavaScript -->
+            <div class="scroller-wrapper">
+                <div class="scroll-container">
+                    <div class="scroll-inner" id="teamScroll">
+                    </div>
+                </div>
+                <button class="scroll-nav scroll-prev" id="teamPrev" aria-label="Previous Leader">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="scroll-nav scroll-next" id="teamNext" aria-label="Next Leader">
+                    <i data-lucide="chevron-right"></i>
+                </button>
             </div>
-
+            <div class="scroll-indicators" id="teamIndicators">
+            </div>
         </div>
     </section>
 
-    <!-- alumni Section -->
-    <section id="alumni" class="section">
+    <section id="alumni" class="section scroll-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Our Alumni</h2>
                 <p class="section-subtitle">Carrying the IUCEE-RIT Legacy Forward</p>
             </div>
-            <div class="alumni-grid" id="alumniGrid">
-                <!-- Alumni will be populated by JavaScript -->
+            <div class="scroller-wrapper">
+
+                <div class="scroll-container">
+                    <div class="scroll-inner" id="alumniScroll">
+                    </div>
+                </div>
+                <button class="scroll-nav scroll-prev" id="alumniPrev" aria-label="Previous Alumni">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="scroll-nav scroll-next" id="alumniNext" aria-label="Next Alumni">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+            </div>
+            <div class="scroll-indicators" id="alumniIndicators">
             </div>
         </div>
     </section>
 
-    <!-- Gallery Section -->
     <section id="gallery" class="section gallery-section">
         <div class="container">
             <div class="section-header">
@@ -274,71 +308,28 @@
 
             <div class="gallery-main">
                 <div class="gallery-slider" id="gallerySlider">
-                    <!-- Gallery images will be populated by JavaScript -->
+                    <!-- gallery will be filled with JS -->
                 </div>
-                <button class="gallery-nav gallery-prev" id="galleryPrev">
+                <button class="gallery-nav gallery-prev" id="galleryPrev" aria-label="Previous Gallery Image">
                     <i data-lucide="chevron-left"></i>
                 </button>
-                <button class="gallery-nav gallery-next" id="galleryNext">
+                <button class="gallery-nav gallery-next" id="galleryNext" aria-label="Next Gallery Image">
                     <i data-lucide="chevron-right"></i>
                 </button>
                 <div class="gallery-indicators" id="galleryIndicators">
-                    <!-- Indicators will be populated by JavaScript -->
                 </div>
             </div>
 
             <div class="gallery-thumbnails" id="galleryThumbnails">
-                <!-- Thumbnails will be populated by JavaScript -->
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-contact">
-                    <h3>Contact Us</h3>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i data-lucide="mail"></i>
-                            <span>ewb_rit@ritindia.edu</span>
-                        </div>
-                        <div class="contact-item">
-                            <i data-lucide="phone"></i>
-                            <span>+91 12345 67890</span>
-                        </div>
-                        <div class="contact-item">
-                            <i data-lucide="map-pin"></i>
-                            <span>Rajarambapu Institute of Technology<br>Ishwarpur, Sangli, Maharashtra, India</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <div class="footer-nav">
-                        <a href="#home">Home</a>
-                        <a href="#vision">Vision & Mission</a>
-                        <a href="#timeline">Our Journey</a>
-                        <a href="#achievements">Achievements</a>
-                        <a href="#sdg">UN SDGs</a>
-                        <a href="#team">Leadership</a>
-                    </div>
-                </div>
-
-                <div class="footer-members">
-                    <h3>Club Members</h3>
-                    <div class="members-list" id="membersList">
-                        <!-- Members will be populated by JavaScript -->
-                    </div>
-                </div>
-            </div>
-
             <div class="social-media-section">
                 <h3>Connect With Us</h3>
                 <div class="social-cards" id="socialCards">
-                    <!-- Social cards will be populated by JavaScript -->
                 </div>
             </div>
 
@@ -351,17 +342,15 @@
         </div>
     </footer>
 
-    <!-- Floating Enrollment Button -->
     <div class="floating-btn-container">
         <button class="floating-btn" id="enrollBtn">Loading....</button>
     </div>
 
-    <!-- Application Form Modal -->
     <div class="modal-overlay hidden" id="modalOverlay">
-        <div class="modal">
+        <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
             <div class="modal-header">
-                <h2>Application Form</h2>
-                <button class="modal-close" id="modalClose">
+                <h2 id="modalTitle">Application Form</h2>
+                <button class="modal-close" id="modalClose" aria-label="Close Modal">
                     <i data-lucide="x"></i>
                 </button>
             </div>
@@ -381,7 +370,7 @@
                     </div>
                     <div class="form-group">
                         <label for="prn">PRN/Roll Number *</label>
-                        <input type="text" id="prn" name="prn" required>
+                        <input type="number" id="prn" name="prn" required>
                     </div>
                     <div class="form-group">
                         <label for="branch">Branch/Department *</label>
@@ -422,26 +411,24 @@
         </div>
     </div>
 
-    <!-- Gallery Modal -->
     <div class="modal-overlay hidden" id="galleryModalOverlay">
-        <div class="modal gallery-modal">
+        <div class="modal gallery-modal" role="dialog" aria-labelledby="galleryModalTitle" aria-modal="true">
             <div class="modal-header">
                 <h2 id="galleryModalTitle">Gallery</h2>
-                <button class="modal-close" id="galleryModalClose">
+                <button class="modal-close" id="galleryModalClose" aria-label="Close Gallery">
                     <i data-lucide="x"></i>
                 </button>
             </div>
             <div class="modal-content">
                 <div class="gallery-modal-grid" id="galleryModalGrid">
-                    <!-- Gallery modal content will be populated by JavaScript -->
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <script src="scripts/main.js"></script>
     <script src="scripts/data.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 
 </html>

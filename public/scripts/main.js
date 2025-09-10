@@ -1,181 +1,204 @@
 // Main JavaScript functionality
 class IUCEEWebsite {
-  // ---------- Init Functions -------------
   constructor() {
-    this.parallaxOffset = 0
-    this.enrollmentOpen = true
-    this.mobileMenuOpen = false
-    this.sdgScrollPosition = 0
-    this.galleryIndex = 0
-    this.selectedGalleryEvent = 0
+    this.enrollmentOpen = false;
+    this.mobileMenuOpen = false;
+    this.galleryIndex = 0;
+    this.selectedGalleryEvent = 0;
 
-    this.init()
+    this.scrollPositions = {
+      sdg: 0,
+      alumni: 0,
+      achievements: 0,
+      projects: 0,
+    };
+
+    this.init();
   }
 
   init() {
-    this.setupEventListeners()
-    this.initializeComponents()
-    this.startAnimations()
+    this.setupEventListeners();
+    this.initializeComponents();
+    this.startAnimations();
     this.checkEnrollmentStatus();
   }
 
   setupEventListeners() {
-    // Scroll events for parallax
-    window.addEventListener("scroll", () => this.handleScroll())
+    window.addEventListener("scroll", () => this.handleScroll());
+    window.addEventListener("resize", () => this.renderAllScrollableSections());
 
-    // Mobile menu
-    const mobileMenuBtn = document.getElementById("mobileMenuBtn")
-    const mobileNav = document.getElementById("mobileNav")
+    document.getElementById("mobileMenuBtn")?.addEventListener("click", () => this.toggleMobileMenu());
+    document.querySelectorAll(".nav-link-mobile").forEach((link) => {
+      link.addEventListener("click", () => this.closeMobileMenu());
+    });
 
-    if (mobileMenuBtn) {
-      mobileMenuBtn.addEventListener("click", () => this.toggleMobileMenu())
-    }
+    const modalOverlay = document.getElementById("modalOverlay");
+    document.getElementById("enrollBtn")?.addEventListener("click", () => this.openApplicationForm());
+    modalOverlay?.addEventListener("click", (e) => {
+      if (e.target === modalOverlay) this.closeApplicationForm();
+    });
+    document.getElementById("modalClose")?.addEventListener("click", () => this.closeApplicationForm());
+    document.getElementById("cancelBtn")?.addEventListener("click", () => this.closeApplicationForm());
+    document.getElementById("applicationForm")?.addEventListener("submit", (e) => this.handleFormSubmit(e));
 
-    // Mobile nav links
-    const mobileNavLinks = document.querySelectorAll(".nav-link-mobile")
-    mobileNavLinks.forEach((link) => {
-      link.addEventListener("click", () => this.closeMobileMenu())
-    })
+    const galleryModalOverlay = document.getElementById("galleryModalOverlay");
+    document.getElementById("galleryPrev")?.addEventListener("click", () => this.prevGalleryImage());
+    document.getElementById("galleryNext")?.addEventListener("click", () => this.nextGalleryImage());
+    galleryModalOverlay?.addEventListener("click", (e) => {
+      if (e.target === galleryModalOverlay) this.closeGalleryModal();
+    });
+    document.getElementById("galleryModalClose")?.addEventListener("click", () => this.closeGalleryModal());
 
-    // Enrollment button
-    const enrollBtn = document.getElementById("enrollBtn")
-    if (enrollBtn) {
-      enrollBtn.addEventListener("click", () => this.openApplicationForm())
-    }
-
-    // Modal controls
-    const modalOverlay = document.getElementById("modalOverlay")
-    const modalClose = document.getElementById("modalClose")
-    const cancelBtn = document.getElementById("cancelBtn")
-
-    if (modalOverlay) {
-      modalOverlay.addEventListener("click", (e) => {
-        if (e.target === modalOverlay) this.closeApplicationForm()
-      })
-    }
-
-    if (modalClose) {
-      modalClose.addEventListener("click", () => this.closeApplicationForm())
-    }
-
-    if (cancelBtn) {
-      cancelBtn.addEventListener("click", () => this.closeApplicationForm())
-    }
-
-    // Application form
-    const applicationForm = document.getElementById("applicationForm")
-    if (applicationForm) {
-      applicationForm.addEventListener("submit", (e) => this.handleFormSubmit(e))
-    }
-
-    // Gallery controls
-    const galleryPrev = document.getElementById("galleryPrev")
-    const galleryNext = document.getElementById("galleryNext")
-
-    if (galleryPrev) {
-      galleryPrev.addEventListener("click", () => this.prevGalleryImage())
-    }
-
-    if (galleryNext) {
-      galleryNext.addEventListener("click", () => this.nextGalleryImage())
-    }
-
-    // Gallery modal
-    const galleryModalOverlay = document.getElementById("galleryModalOverlay")
-    const galleryModalClose = document.getElementById("galleryModalClose")
-
-    if (galleryModalOverlay) {
-      galleryModalOverlay.addEventListener("click", (e) => {
-        if (e.target === galleryModalOverlay) this.closeGalleryModal()
-      })
-    }
-
-    if (galleryModalClose) {
-      galleryModalClose.addEventListener("click", () => this.closeGalleryModal())
-    }
+    const sections = ["projects", "alumni", "achievements", "sdg", "team"];
+    sections.forEach(section => {
+      document.getElementById(`${section}Prev`)?.addEventListener("click", () => this.prevScrollableSection(section));
+      document.getElementById(`${section}Next`)?.addEventListener("click", () => this.nextScrollableSection(section));
+    });
   }
 
   initializeComponents() {
-    this.renderTimeline()
-    this.renderAchievements()
-    this.renderSDGCards()
-    this.renderGallery()
-    this.renderClubMembers()
-    this.renderSocialMediaCards()
-    this.renderTeam();
-    this.renderAlumni();
-    this.renderProjects();
+    this.renderTimeline();
+    this.renderGallery();
+    this.renderSocialMediaCards();
+    this.renderAllScrollableSections();
+
+    // Make all sliders draggable
+    this.makeDraggable('.scroll-container', '.scroll-inner');
+    this.makeDraggable('.gallery-main', '.gallery-slider');
+
+    lucide.createIcons();
+  }
+
+  renderAllScrollableSections() {
+    this.renderScrollableSection('team', window.teamMembers, (item) => `
+      <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="card team-card" data-parallax>
+        <img src="${item.image}" alt="Profile of ${item.name}">
+        <div class="card-content">
+          <h3>${item.name}</h3>
+          <p class="team-role">${item.role}</p>
+          <p class="team-description">${item.description}</p>
+        </div>
+      </a>`);
+
+    this.renderScrollableSection('sdg', window.sdgGoals, (item) => `
+      <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="card sdg-card">
+        <div class="card-header sdg-header">
+          <span class="sdg-icon">${item.icon}</span>
+          <div>
+            <div class="sdg-id">SDG ${item.id}</div>
+            <div class="sdg-title">${item.title}</div>
+          </div>
+        </div>
+        <div class="card-content">
+          <p class="sdg-description">${item.description}</p>
+        </div>
+      </a>`);
+
+    this.renderScrollableSection('projects', window.projects, (item) => `
+      <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="card project-card">
+        <img src="${item.image}" alt="${item.title}" class="project-image">
+        <div class="card-content">
+          <h3>${item.title}</h3>
+          <p class="project-description">${item.description}</p>
+        </div>
+      </a>`);
+
+    this.renderScrollableSection('alumni', window.alumni, (item) => `
+      <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="card alumni-card">
+        <img src="${item.image}" alt="${item.name}" class="alumni-image">
+        <div class="card-content">
+          <h3>${item.name}</h3>
+          <p class="team-role">${item.currentRole}</p>
+        </div>
+      </a>`);
+
+    this.renderScrollableSection('achievements', window.achievements, (item) => `
+      <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="card achievement-card">
+        <div class="achievement-icon">
+          <i data-lucide="${item.icon}"></i>
+        </div>
+        <div class="card-content">
+          <h3 class="achievement-title">${item.title}</h3>
+          <p class="achievement-description">${item.description}</p>
+        </div>
+      </a>`);
   }
 
   startAnimations() {
-    // Auto-scroll SDG cards
-    setInterval(() => {
-      this.sdgScrollPosition = (this.sdgScrollPosition + 1) % Math.ceil(window.sdgGoals.length / 3)
-      this.updateSDGScroll()
-    }, 3000)
+    setInterval(() => this.nextGalleryImage(), 5000);
+    const scrollableSections = ['sdg', 'achievements', 'alumni', 'projects', 'team'];
+    scrollableSections.forEach(section => {
+      setInterval(() => this.nextScrollableSection(section), 3000);
+    });
+  }
 
-    // Auto-advance gallery
-    setInterval(() => {
-      this.galleryIndex = (this.galleryIndex + 1) % window.galleryImages.length
-      this.updateGalleryDisplay()
-    }, 5000)
+  // --- NEW DRAGGABLE FUNCTIONALITY ---
+  makeDraggable(containerSelector, sliderSelector) {
+    document.querySelectorAll(containerSelector).forEach(container => {
+      const slider = container.querySelector(sliderSelector);
+      if (!slider) return;
+
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      const start = (e) => {
+        isDown = true;
+        container.classList.add('active');
+        startX = (e.pageX || e.touches[0].pageX) - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+      };
+
+      const end = () => {
+        isDown = false;
+        container.classList.remove('active');
+      };
+
+      const move = (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = (e.pageX || e.touches[0].pageX) - slider.offsetLeft;
+        const walk = (x - startX) * 2; // Scroll-fast factor
+        slider.scrollLeft = scrollLeft - walk;
+      };
+
+      container.addEventListener('mousedown', start);
+      container.addEventListener('touchstart', start, { passive: true });
+
+      container.addEventListener('mouseleave', end);
+      container.addEventListener('mouseup', end);
+      container.addEventListener('touchend', end);
+
+      container.addEventListener('mousemove', move);
+      container.addEventListener('touchmove', move, { passive: false });
+    });
   }
 
   toggleMobileMenu() {
-    this.mobileMenuOpen = !this.mobileMenuOpen
-    const mobileNav = document.getElementById("mobileNav")
-    const menuIcon = document.querySelector(".menu-icon")
-    const closeIcon = document.querySelector(".close-icon")
-
-    if (mobileNav) {
-      mobileNav.classList.toggle("hidden", !this.mobileMenuOpen)
-    }
-
-    if (menuIcon && closeIcon) {
-      menuIcon.classList.toggle("hidden", this.mobileMenuOpen)
-      closeIcon.classList.toggle("hidden", !this.mobileMenuOpen)
-    }
+    this.mobileMenuOpen = !this.mobileMenuOpen;
+    document.getElementById("mobileNav")?.classList.toggle("hidden", !this.mobileMenuOpen);
+    document.querySelector(".menu-icon")?.classList.toggle("hidden", this.mobileMenuOpen);
+    document.querySelector(".close-icon")?.classList.toggle("hidden", !this.mobileMenuOpen);
   }
 
   closeMobileMenu() {
-    this.mobileMenuOpen = false
-    const mobileNav = document.getElementById("mobileNav")
-    const menuIcon = document.querySelector(".menu-icon")
-    const closeIcon = document.querySelector(".close-icon")
-
-    if (mobileNav) {
-      mobileNav.classList.add("hidden")
-    }
-
-    if (menuIcon && closeIcon) {
-      menuIcon.classList.remove("hidden")
-      closeIcon.classList.add("hidden")
-    }
+    if (!this.mobileMenuOpen) return;
+    this.mobileMenuOpen = false;
+    document.getElementById("mobileNav")?.classList.add("hidden");
+    document.querySelector(".menu-icon")?.classList.remove("hidden");
+    document.querySelector(".close-icon")?.classList.add("hidden");
   }
 
-  // ------------ Application Form ------------
   openApplicationForm() {
-    if (!this.enrollmentOpen) return
-
-    const modalOverlay = document.getElementById("modalOverlay")
-    if (modalOverlay) {
-      modalOverlay.classList.remove("hidden")
-      document.body.style.overflow = "hidden"
-    }
+    if (!this.enrollmentOpen) return;
+    document.getElementById("modalOverlay")?.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
   }
 
   closeApplicationForm() {
-    const modalOverlay = document.getElementById("modalOverlay")
-    if (modalOverlay) {
-      modalOverlay.classList.add("hidden")
-      document.body.style.overflow = ""
-    }
-
-    // Reset form
-    const form = document.getElementById("applicationForm")
-    if (form) {
-      form.reset()
-    }
+    document.getElementById("modalOverlay")?.classList.add("hidden");
+    document.body.style.overflow = "";
+    document.getElementById("applicationForm")?.reset();
   }
 
   async checkEnrollmentStatus() {
@@ -191,17 +214,20 @@ class IUCEEWebsite {
         if (status.enabled === false) {
           enrollBtn.disabled = true;
           enrollBtn.textContent = 'Enrollment Closed';
+          this.enrollmentOpen = false;
         } else {
           enrollBtn.disabled = false;
-          enrollBtn.textContent = 'Enrollment Open';
+          enrollBtn.textContent = 'Apply Now';
+          this.enrollmentOpen = true;
         }
       }
     } catch (error) {
       console.error("Could not check enrollment status:", error);
-      // Keep the button enabled by default if the check fails
       const enrollBtn = document.getElementById('enrollBtn');
       if (enrollBtn) {
         enrollBtn.disabled = false;
+        enrollBtn.textContent = 'Apply Now';
+        this.enrollmentOpen = true;
       }
     }
   }
@@ -239,392 +265,227 @@ class IUCEEWebsite {
     } catch (error) {
       console.error('Submission Error:', error);
       alert('There was a problem with your submission. Please try again.');
-    } finally {
-      // Re-enable the button whether it succeeded or failed
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit Application';
     }
   }
 
-  // ------------ Rendering ------------
+  // ------------ Rendering Functions ------------
   renderSocialMediaCards() {
-    const socialCards = document.getElementById("socialCards")
-    if (!socialCards) return
-
-    socialCards.innerHTML = window.socialMedia
-      .map(social => `
-        <a href="${social.url}" target="_blank" rel="noopener noreferrer" class="social-card-link">
-          <div class="social-card">
-            <i data-lucide="${social.icon}" style="stroke:${social.color};"></i>
-            <h4>${social.name}</h4>
-            <p>${social.description}</p>
-            <div class="social-btn">
-              ${social.name === 'LinkedIn' ? 'Connect' : 'Follow'}
-            </div>
-          </div>
-        </a>
-      `)
-      .join("")
-
-    // Re-initialize Lucide icons
-    if (typeof window.lucide !== "undefined") {
-      window.lucide.createIcons()
-    }
+    const socialCards = document.getElementById("socialCards");
+    if (!socialCards) return;
+    socialCards.innerHTML = window.socialMedia.map(social => `
+      <a href="${social.url}" target="_blank" rel="noopener noreferrer" class="social-card">
+        <i data-lucide="${social.icon}" style="color:${social.color};"></i>
+        <h4>${social.name}</h4>
+        <p>${social.description}</p>
+        <div class="social-btn">${social.name === 'LinkedIn' ? 'Connect' : 'Follow'}</div>
+      </a>`).join("");
   }
 
   renderTimeline() {
-    const timelineEvents = document.getElementById("timelineEvents")
-    if (!timelineEvents) return
-
-    timelineEvents.innerHTML = window.timelineEvents
-      .map(
-        (event, index) => `
-            <div class="timeline-event">
-                <div class="timeline-event-content">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="timeline-year">${event.year}</div>
-                            <h3 class="timeline-title">${event.title}</h3>
-                            <p class="timeline-description">${event.description}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-dot"></div>
+    const timelineEvents = document.getElementById("timelineEvents");
+    if (!timelineEvents) return;
+    timelineEvents.innerHTML = window.timelineEvents.map(event => `
+      <div class="timeline-event ">
+        <div class="timeline-dot"></div>
+        <div class="timeline-event-content">
+          <div class="card">
+            <div class="card-content">
+              <div class="timeline-year">${event.year}</div>
+              <h3 class="timeline-title">${event.title}</h3>
+              <p class="timeline-description">${event.description}</p>
             </div>
-        `,
-      )
-      .join("")
-  }
-
-  renderAchievements() {
-    const achievementsGrid = document.getElementById("achievementsGrid")
-    if (!achievementsGrid) return
-
-    achievementsGrid.innerHTML = window.achievements
-      .map(
-        (achievement) => `
-            <div class="card achievement-card hover-lift">
-                <div class="card-content">
-                    <div class="achievement-icon">
-                        <i data-lucide="${achievement.icon}"></i>
-                    </div>
-                    <h3 class="achievement-title">${achievement.title}</h3>
-                    <p class="achievement-description">${achievement.description}</p>
-                </div>
-            </div>
-        `,
-      )
-      .join("")
-
-    // Re-initialize Lucide icons
-    if (typeof window.lucide !== "undefined") {
-      window.lucide.createIcons()
-    }
-  }
-
-  renderSDGCards() {
-    const sdgScroll = document.getElementById("sdgScroll")
-    const sdgIndicators = document.getElementById("sdgIndicators")
-
-    if (!sdgScroll || !sdgIndicators) return
-
-    // Render SDG cards (duplicate first few for seamless scrolling)
-    const extendedGoals = [...window.sdgGoals, ...window.sdgGoals.slice(0, 3)]
-    sdgScroll.innerHTML = extendedGoals
-      .map(
-        (goal) => `
-          <a href="https://sdgs.un.org/goals/goal${String(goal.id)}">
-            <div class="card sdg-card">
-                <div class="card-header">
-                    <div class="sdg-header">
-                        <span class="sdg-icon">${goal.icon}</span>
-                        <div>
-                            <div class="sdg-id">SDG ${goal.id}</div>
-                            <div class="sdg-title">${goal.title}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <p class="sdg-description">${goal.description}</p>
-                </div>
-            </div>
-          </a>
-        `,
-      )
-      .join("")
-
-    // Render indicators
-    const indicatorCount = Math.ceil(window.sdgGoals.length / 3)
-    sdgIndicators.innerHTML = Array.from(
-      { length: indicatorCount },
-      (_, index) => `
-            <button class="sdg-indicator ${index === 0 ? "active" : ""}" 
-                    onclick="website.setSDGPosition(${index})"></button>
-        `,
-    ).join("")
+          </div>
+        </div>
+      </div>`).join("");
   }
 
   renderGallery() {
-    const gallerySlider = document.getElementById("gallerySlider")
-    const galleryIndicators = document.getElementById("galleryIndicators")
-    const galleryThumbnails = document.getElementById("galleryThumbnails")
+    const gallerySlider = document.getElementById("gallerySlider");
+    const galleryIndicators = document.getElementById("galleryIndicators");
+    const galleryThumbnails = document.getElementById("galleryThumbnails");
+    if (!gallerySlider || !galleryIndicators || !galleryThumbnails) return;
 
-    if (!gallerySlider || !galleryIndicators || !galleryThumbnails) return
-
-    // Render main gallery slider
-    gallerySlider.innerHTML = window.galleryImages
-      .map(
-        (image, index) => `
-            <div class="gallery-slide ${index === 0 ? "active" : ""}">
-                <img src="${image.src}" alt="${image.alt}">
-                <div class="gallery-overlay">
-                    <h3 class="gallery-title">${image.title}</h3>
-                    <p class="gallery-description">${image.description}</p>
-                </div>
-            </div>
-        `,
-      )
-      .join("")
-
-    // Render indicators
-    galleryIndicators.innerHTML = window.galleryImages
-      .map(
-        (_, index) => `
-            <button class="gallery-indicator ${index === 0 ? "active" : ""}" 
-                    onclick="website.setGalleryIndex(${index})"></button>
-        `,
-      )
-      .join("")
-
-    // Render thumbnails
-    galleryThumbnails.innerHTML = window.galleryImages
-      .map(
-        (image, index) => `
-            <div class="card gallery-thumbnail ${index === 0 ? "active" : ""}" 
-                 onclick="website.openGalleryModal(${index})">
-                <img src="${image.src}" alt="${image.alt}">
-                <div class="gallery-thumbnail-content">
-                    <h3 class="gallery-thumbnail-title">${image.title}</h3>
-                    <p class="gallery-thumbnail-description">${image.description}</p>
-                    <p class="gallery-thumbnail-cta">Click to view full gallery →</p>
-                </div>
-            </div>
-        `,
-      )
-      .join("")
-  }
-
-  renderClubMembers() {
-    const membersList = document.getElementById("membersList")
-    if (!membersList) return
-
-    membersList.innerHTML = window.clubMembers
-      .map(
-        (member) => `
-            <div class="member-item">
-                <div class="member-name">${member.name}</div>
-                <div class="member-role">${member.role}</div>
-                <div class="member-details">${member.department} - ${member.year}</div>
-            </div>
-        `,
-      )
-      .join("")
-  }
-
-  renderAlumni() {
-    const alumniGrid = document.getElementById("alumniGrid");
-    if (!alumniGrid) return;
-
-    alumniGrid.className = 'team-grid'; // Reuse existing grid class
-
-    alumniGrid.innerHTML = window.alumni.map(alumnus => `
-      <a href="${alumnus.link}" target="_blank" rel="noopener noreferrer" class="card achievement-card">
-          <div class="card-content">
-              <img src="${alumnus.image}" alt="${alumnus.name}" class="alumni-image">
-              <h3>${alumnus.name}</h3>
-              <p class="team-role">${alumnus.currentRole}</p> 
-          </div>
-      </a>
-    `).join('');
-  }
-
-  renderProjects() {
-    const projectsGrid = document.getElementById("projectsGrid");
-    if (!projectsGrid) return;
-
-    projectsGrid.className = 'team-grid'; // Reuse existing grid class
-
-    projectsGrid.innerHTML = window.projects.map(project => {
-      // Determine if the card should be a clickable link or a static div
-      const isClickable = project.githubLink;
-      const Tag = isClickable ? 'a' : 'div';
-      const linkAttrs = isClickable ? `href="${project.githubLink}" target="_blank" rel="noopener noreferrer"` : '';
-
-      return `
-        <${Tag} ${linkAttrs} class="card project-card hover-lift">
-            <img src="${project.image}" alt="${project.title}" class="project-image">
-            <div class="card-content">
-                <h3>${project.title}</h3>
-                <p class="project-description">${project.description}</p>
-            </div>
-        </${Tag}>
-      `;
-    }).join('');
-  }
-
-  renderTeam() {
-    const teamGrid = document.getElementById("teamGrid");
-    if (!teamGrid) return;
-
-    teamGrid.innerHTML = window.teamMembers.map(member => `
-      <a href="${member.link}" target="_blank" rel="noopener noreferrer">
-        <div class="card team-card">
-          <div class="card-content">
-            <img src="${member.image}" alt="Profile of ${member.name}">
-            <h3>${member.name}</h3>
-            <p class="team-role">${member.role}</p>
-            <p class="team-description">${member.description}</p>
-          </div>
+    // UPDATED to use a universal CTA class name
+    gallerySlider.innerHTML = window.galleryImages.map((image, index) => `
+      <div class="gallery-slide" onclick="website.openGalleryModal(${index})">
+        <img src="${image.src}" alt="${image.alt}">
+        <div class="gallery-overlay">
+          <h3 class="gallery-title">${image.title}</h3>
+          <p class="gallery-description">${image.description}</p>
+          <span class="gallery-click-cta">Click to view full gallery →</span>
         </div>
-      </a>
-    `).join('');
+      </div>`).join("");
+
+    galleryIndicators.innerHTML = window.galleryImages.map((_, index) => `
+      <button class="gallery-indicator ${index === 0 ? "active" : ""}" 
+              onclick="website.setGalleryIndex(${index})"
+              aria-label="Go to image ${index + 1}"></button>`).join("");
+
+    galleryThumbnails.innerHTML = window.galleryImages.map((image, index) => `
+      <div class="card gallery-thumbnail" onclick="website.openGalleryModal(${index})">
+        <img src="${image.src}" alt="${image.alt}">
+        <div class="card-content">
+          <h3 class="gallery-thumbnail-title">${image.title}</h3>
+          <p class="gallery-thumbnail-description">${image.description}</p>
+          <span class="gallery-thumbnail-cta">View Full Gallery →</span>
+        </div>
+      </div>`).join("");
   }
 
-  // ------------ Helper Functions ------------
-  setSDGPosition(position) {
-    this.sdgScrollPosition = position
-    this.updateSDGScroll()
+  // ------------ Scrollable Section Logic (Updated for scrollLeft) ------------
+  renderScrollableSection(sectionName, data, templateFn) {
+    const scrollContainer = document.getElementById(`${sectionName}Scroll`);
+    const indicatorsContainer = document.getElementById(`${sectionName}Indicators`);
+    if (!scrollContainer || !indicatorsContainer) return;
+
+    scrollContainer.innerHTML = data.map(templateFn).join("");
+
+    const itemsPerPage = this.getItemsPerPage();
+    const indicatorCount = Math.ceil(data.length / itemsPerPage);
+
+    indicatorsContainer.innerHTML = Array.from({ length: indicatorCount }, (_, i) => `
+      <button class="scroll-indicator ${i === 0 ? "active" : ""}"
+              onclick="website.setScrollPosition('${sectionName}', ${i})"
+              aria-label="Go to page ${i + 1}"></button>`).join("");
+
+    this.updateScrollPosition(sectionName);
+    lucide.createIcons();
   }
 
-  updateSDGScroll() {
-    const sdgScroll = document.getElementById("sdgScroll")
-    const indicators = document.querySelectorAll(".sdg-indicator")
+  getItemsPerPage() {
+    return window.innerWidth > 992 ? 3 : window.innerWidth > 768 ? 2 : 1;
+  }
 
-    if (sdgScroll) {
-      const translateX = -this.sdgScrollPosition * 320 * 3 // 320px card width * 3 cards
-      sdgScroll.style.transform = `translateX(${translateX}px)`
+  setScrollPosition(sectionName, position) {
+    this.scrollPositions[sectionName] = position;
+    this.updateScrollPosition(sectionName);
+  }
+
+  nextScrollableSection(sectionName) {
+    const data = this.getDataForSection(sectionName);
+    const itemsPerPage = this.getItemsPerPage();
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+    this.scrollPositions[sectionName] = (this.scrollPositions[sectionName] + 1) % totalPages;
+    this.updateScrollPosition(sectionName);
+  }
+
+  prevScrollableSection(sectionName) {
+    const data = this.getDataForSection(sectionName);
+    const itemsPerPage = this.getItemsPerPage();
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+    this.scrollPositions[sectionName] = (this.scrollPositions[sectionName] - 1 + totalPages) % totalPages;
+    this.updateScrollPosition(sectionName);
+  }
+
+  updateScrollPosition(sectionName) {
+    const scrollContainer = document.getElementById(`${sectionName}Scroll`);
+    if (!scrollContainer) return;
+
+    const itemsPerPage = this.getItemsPerPage();
+    const targetIndex = Math.min(this.scrollPositions[sectionName] * itemsPerPage, scrollContainer.children.length - 1);
+
+    if (scrollContainer.children[targetIndex]) {
+      const targetElement = scrollContainer.children[targetIndex];
+      scrollContainer.scrollLeft = targetElement.offsetLeft;
     }
 
-    // Update indicators
+    const indicators = document.querySelectorAll(`#${sectionName}Indicators .scroll-indicator`);
     indicators.forEach((indicator, index) => {
-      indicator.classList.toggle("active", index === this.sdgScrollPosition)
-    })
+      indicator.classList.toggle("active", index === this.scrollPositions[sectionName]);
+    });
   }
 
+  getDataForSection(sectionName) {
+    return {
+      'sdg': window.sdgGoals,
+      'achievements': window.achievements,
+      'alumni': window.alumni,
+      'projects': window.projects,
+      'team': window.teamMembers,
+    }[sectionName] || [];
+  }
+
+  // ------------ Gallery Logic (Updated for scrollLeft) ------------
   updateGalleryDisplay() {
-    const slides = document.querySelectorAll(".gallery-slide")
-    const indicators = document.querySelectorAll(".gallery-indicator")
-    const thumbnails = document.querySelectorAll(".gallery-thumbnail")
+    const gallerySlider = document.getElementById("gallerySlider");
+    if (!gallerySlider) return;
 
-    slides.forEach((slide, index) => {
-      slide.classList.toggle("active", index === this.galleryIndex)
-    })
+    const scrollAmount = this.galleryIndex * gallerySlider.offsetWidth;
+    gallerySlider.scrollLeft = scrollAmount;
 
-    indicators.forEach((indicator, index) => {
-      indicator.classList.toggle("active", index === this.galleryIndex)
-    })
-
-    thumbnails.forEach((thumbnail, index) => {
-      thumbnail.classList.toggle("active", index === this.galleryIndex)
-    })
+    document.querySelectorAll(".gallery-indicator").forEach((ind, i) => ind.classList.toggle("active", i === this.galleryIndex));
   }
 
   setGalleryIndex(index) {
-    this.galleryIndex = index
-    this.updateGalleryDisplay()
+    this.galleryIndex = index;
+    this.updateGalleryDisplay();
   }
 
   nextGalleryImage() {
-    this.galleryIndex = (this.galleryIndex + 1) % window.galleryImages.length
-    this.updateGalleryDisplay()
+    this.galleryIndex = (this.galleryIndex + 1) % window.galleryImages.length;
+    this.updateGalleryDisplay();
   }
 
   prevGalleryImage() {
-    this.galleryIndex = (this.galleryIndex - 1 + window.galleryImages.length) % window.galleryImages.length
-    this.updateGalleryDisplay()
+    this.galleryIndex = (this.galleryIndex - 1 + window.galleryImages.length) % window.galleryImages.length;
+    this.updateGalleryDisplay();
   }
 
   openGalleryModal(eventIndex) {
-    this.selectedGalleryEvent = eventIndex
-    const modal = document.getElementById("galleryModalOverlay")
-    const title = document.getElementById("galleryModalTitle")
-    const grid = document.getElementById("galleryModalGrid")
+    this.selectedGalleryEvent = eventIndex;
+    const modal = document.getElementById("galleryModalOverlay");
+    const title = document.getElementById("galleryModalTitle");
+    const grid = document.getElementById("galleryModalGrid");
+    if (!modal || !title || !grid) return;
 
-    if (!modal || !title || !grid) return
+    const event = window.galleryImages[eventIndex];
+    title.textContent = `${event.title} - Full Gallery`;
 
-    const event = window.galleryImages[eventIndex]
-    title.textContent = `${event.title} - Full Gallery`
+    grid.innerHTML = event.fullGallery.map(item => `
+      <div class="gallery-modal-item">
+        <img src="${item.src}" alt="${item.caption}">
+        <p class="gallery-modal-caption">${item.caption}</p>
+      </div>`).join("");
 
-    grid.innerHTML = event.fullGallery
-      .map(
-        (item) => `
-            <div class="gallery-modal-item">
-                <img src="${item.src}" alt="${item.caption}">
-                <div class="gallery-modal-caption">
-                    <p>${item.caption}</p>
-                </div>
-            </div>
-        `,
-      )
-      .join("")
-
-    modal.classList.remove("hidden")
-    document.body.style.overflow = "hidden"
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
   }
 
   closeGalleryModal() {
-    const modal = document.getElementById("galleryModalOverlay")
-    if (modal) {
-      modal.classList.add("hidden")
-      document.body.style.overflow = ""
-    }
+    document.getElementById("galleryModalOverlay")?.classList.add("hidden");
+    document.body.style.overflow = "";
   }
 
+  // ------------ Scroll & Animation Effects ------------
   handleScroll() {
-    const scrolled = window.pageYOffset
-    this.parallaxOffset = scrolled * -0.5
+    const scrolled = window.scrollY;
+    const parallaxOffset = scrolled * -0.3;
 
-    // Update parallax backgrounds
-    const parallaxBg1 = document.querySelector(".parallax-bg-1")
-    const parallaxBg2 = document.querySelector(".parallax-bg-2")
-    const parallaxBg3 = document.querySelector(".parallax-bg-3")
+    document.querySelector(".parallax-bg-1")?.style.setProperty('transform', `translateY(${parallaxOffset * 0.8}px)`);
+    document.querySelector(".parallax-bg-2")?.style.setProperty('transform', `translateY(${parallaxOffset * 0.3}px)`);
+    document.querySelector(".parallax-bg-3")?.style.setProperty('transform', `translateY(${parallaxOffset * 0.6}px)`);
 
-    if (parallaxBg1) {
-      parallaxBg1.style.transform = `translateY(${this.parallaxOffset * 0.8}px)`
-    }
-    if (parallaxBg2) {
-      parallaxBg2.style.transform = `translateY(${this.parallaxOffset * 0.3}px)`
-    }
-    if (parallaxBg3) {
-      parallaxBg3.style.transform = `translateY(${this.parallaxOffset * 0.6}px)`
-    }
-
-    // Update floating elements
-    const floatingElements = document.querySelectorAll(".floating-element")
-    floatingElements.forEach((element, index) => {
-      const multiplier = 0.01 + index * 0.003
-      const xOffset = Math.sin(scrolled * multiplier) * (20 + index * 5)
-      const yOffset = this.parallaxOffset * (0.2 + index * 0.1)
-      element.style.transform = `translate(${xOffset}px, ${yOffset}px)`
-    })
+    document.querySelectorAll(".floating-element").forEach((el, i) => {
+      const speed = 0.05 + i * 0.02;
+      const range = 20 + i * 5;
+      const xOffset = Math.sin(scrolled * speed * 0.1) * range;
+      const yOffset = parallaxOffset * (0.2 + i * 0.1);
+      el.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+    });
   }
 }
 
-// Initialize the website when DOM is loaded
+// Initialize the website and smooth scrolling
 document.addEventListener("DOMContentLoaded", () => {
-  window.website = new IUCEEWebsite()
-})
+  window.website = new IUCEEWebsite();
 
-// Smooth scrolling for anchor links
-document.addEventListener("click", (e) => {
-  if (e.target.matches('a[href^="#"]')) {
-    e.preventDefault()
-    const target = document.querySelector(e.target.getAttribute("href"))
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      })
-    }
-  }
-})
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const targetElement = document.querySelector(this.getAttribute('href'));
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+});
