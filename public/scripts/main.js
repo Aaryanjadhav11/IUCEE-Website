@@ -236,19 +236,44 @@ class IUCEEWebsite {
     }
   }
 
-  handleFormSubmit(e) {
-    e.preventDefault()
+  async handleFormSubmit(e) { // Make the function async
+    e.preventDefault();
 
-    const formData = new FormData(e.target)
-    const data = Object.fromEntries(formData.entries())
+    const submitBtn = e.target.querySelector('button[type="submit"]');
 
-    console.log("Application submitted:", data)
+    // Disable the button to prevent multiple clicks
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
 
-    // Here you would typically send the data to your server
-    // For demo purposes, we'll just show an alert
-    alert("Application submitted successfully! We will contact you soon.")
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
 
-    this.closeApplicationForm()
+    try {
+      // Use fetch to send the data to your backend
+      const response = await fetch('/api/apply', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        // Handle errors from the server
+        throw new Error('Server responded with an error');
+      }
+
+      alert("Application submitted successfully! We will contact you soon.");
+      this.closeApplicationForm();
+
+    } catch (error) {
+      console.error('Submission Error:', error);
+      alert('There was a problem with your submission. Please try again.');
+    } finally {
+      // Re-enable the button whether it succeeded or failed
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Application';
+    }
   }
 
   renderTimeline() {
