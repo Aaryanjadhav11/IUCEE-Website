@@ -1,4 +1,4 @@
-import { supa } from '@/lib/supabase';
+import { supa } from '../../../lib/supabase.js';
 
 export async function GET() {
     const { data, error } = await supa.from('settings').select('value').eq('key', 'enroll_button').single();

@@ -1,4 +1,4 @@
-import { supa } from '@/lib/supabase';
+import { supa } from '../../../lib/supabase.js';
 import { Parser } from 'json2csv';
 
 export async function GET(req) {
