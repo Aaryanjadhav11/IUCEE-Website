@@ -252,7 +252,7 @@ class IUCEEWebsite {
           enrollBtn.textContent = 'Enrollment Closed';
         } else {
           enrollBtn.disabled = false;
-          enrollBtn.textContent = '🎓 Enroll Now';
+          enrollBtn.textContent = 'Enrollment Open';
         }
       }
     } catch (error) {
