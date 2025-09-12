@@ -1,149 +1,13 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+/* Created comprehensive global styles with 3D effects and animations */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @custom-variant dark (&:is(.dark *));
 
-:root {
-  /* Updated color palette to match Apple's premium aesthetic with emerald green as primary */
-  --background: oklch(1 0 0);
-  /* Pure white for clean background */
-  --foreground: oklch(0.35 0 0);
-  /* Dark gray for text readability */
-  --card: oklch(0.98 0 0);
-  /* Very light gray for card backgrounds */
-  --card-foreground: oklch(0.35 0 0);
-  /* Dark gray for card text */
-  --popover: oklch(1 0 0);
-  /* White popover background */
-  --popover-foreground: oklch(0.35 0 0);
-  /* Dark gray popover text */
-  --primary: oklch(0.55 0.15 160);
-  /* Emerald green primary color */
-  --primary-foreground: oklch(1 0 0);
-  /* White text on primary */
-  --secondary: oklch(0.65 0.12 160);
-  /* Lighter emerald for secondary */
-  --secondary-foreground: oklch(1 0 0);
-  /* White text on secondary */
-  --muted: oklch(0.96 0 0);
-  /* Light gray for muted backgrounds */
-  --muted-foreground: oklch(0.55 0 0);
-  /* Medium gray for muted text */
-  --accent: oklch(0.65 0.12 160);
-  /* Emerald accent color */
-  --accent-foreground: oklch(1 0 0);
-  /* White text on accent */
-  --destructive: oklch(0.55 0.25 25);
-  /* Red for destructive actions */
-  --destructive-foreground: oklch(1 0 0);
-  /* White text on destructive */
-  --border: oklch(0.92 0 0);
-  /* Light border color */
-  --input: oklch(1 0 0);
-  /* White input background */
-  --ring: oklch(0.55 0.15 160 / 0.3);
-  /* Semi-transparent emerald ring */
-  --chart-1: oklch(0.55 0.15 160);
-  /* Emerald chart color */
-  --chart-2: oklch(0.65 0.12 160);
-  /* Light emerald chart color */
-  --chart-3: oklch(0.35 0 0);
-  /* Dark gray chart color */
-  --chart-4: oklch(0.85 0 0);
-  /* Light gray chart color */
-  --chart-5: oklch(0.55 0.25 25);
-  /* Red chart color */
-  --radius: 0.75rem;
-  /* Slightly larger radius for modern look */
-  --sidebar: oklch(1 0 0);
-  /* White sidebar */
-  --sidebar-foreground: oklch(0.35 0 0);
-  /* Dark gray sidebar text */
-  --sidebar-primary: oklch(0.55 0.15 160);
-  /* Emerald sidebar primary */
-  --sidebar-primary-foreground: oklch(1 0 0);
-  /* White sidebar primary text */
-  --sidebar-accent: oklch(0.65 0.12 160);
-  /* Emerald sidebar accent */
-  --sidebar-accent-foreground: oklch(1 0 0);
-  /* White sidebar accent text */
-  --sidebar-border: oklch(0.92 0 0);
-  /* Light sidebar border */
-  --sidebar-ring: oklch(0.55 0.15 160 / 0.3);
-  /* Semi-transparent emerald sidebar ring */
-}
-
-.dark {
-  /* Dark mode colors maintaining the emerald theme */
-  --background: oklch(0.08 0 0);
-  /* Very dark background */
-  --foreground: oklch(0.95 0 0);
-  /* Light text */
-  --card: oklch(0.12 0 0);
-  /* Dark card background */
-  --card-foreground: oklch(0.95 0 0);
-  /* Light card text */
-  --popover: oklch(0.08 0 0);
-  /* Dark popover */
-  --popover-foreground: oklch(0.95 0 0);
-  /* Light popover text */
-  --primary: oklch(0.65 0.12 160);
-  /* Brighter emerald for dark mode */
-  --primary-foreground: oklch(0.08 0 0);
-  /* Dark text on primary */
-  --secondary: oklch(0.2 0 0);
-  /* Dark secondary */
-  --secondary-foreground: oklch(0.95 0 0);
-  /* Light secondary text */
-  --muted: oklch(0.15 0 0);
-  /* Dark muted background */
-  --muted-foreground: oklch(0.65 0 0);
-  /* Medium gray muted text */
-  --accent: oklch(0.65 0.12 160);
-  /* Bright emerald accent */
-  --accent-foreground: oklch(0.08 0 0);
-  /* Dark accent text */
-  --destructive: oklch(0.6 0.25 25);
-  /* Brighter red for dark mode */
-  --destructive-foreground: oklch(0.95 0 0);
-  /* Light destructive text */
-  --border: oklch(0.2 0 0);
-  /* Dark border */
-  --input: oklch(0.12 0 0);
-  /* Dark input background */
-  --ring: oklch(0.65 0.12 160 / 0.3);
-  /* Semi-transparent emerald ring */
-  --chart-1: oklch(0.65 0.12 160);
-  /* Bright emerald chart */
-  --chart-2: oklch(0.75 0.1 160);
-  /* Very light emerald chart */
-  --chart-3: oklch(0.8 0 0);
-  /* Light gray chart */
-  --chart-4: oklch(0.4 0 0);
-  /* Medium gray chart */
-  --chart-5: oklch(0.6 0.25 25);
-  /* Bright red chart */
-  --sidebar: oklch(0.08 0 0);
-  /* Dark sidebar */
-  --sidebar-foreground: oklch(0.95 0 0);
-  /* Light sidebar text */
-  --sidebar-primary: oklch(0.65 0.12 160);
-  /* Bright emerald sidebar primary */
-  --sidebar-primary-foreground: oklch(0.08 0 0);
-  /* Dark sidebar primary text */
-  --sidebar-accent: oklch(0.2 0 0);
-  /* Dark sidebar accent */
-  --sidebar-accent-foreground: oklch(0.95 0 0);
-  /* Light sidebar accent text */
-  --sidebar-border: oklch(0.2 0 0);
-  /* Dark sidebar border */
-  --sidebar-ring: oklch(0.65 0.12 160 / 0.3);
-  /* Semi-transparent emerald sidebar ring */
-}
-
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -190,63 +54,103 @@
   body {
     @apply bg-background text-foreground;
   }
+}
 
-  /* Added smooth scrolling and enhanced typography */
-  html {
-    scroll-behavior: smooth;
+:root {
+  --primary-color: #059669;
+  --secondary-color: #0f172a;
+  --accent-color: #f59e0b;
+  --text-primary: #ffffff;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --bg-card: rgba(31, 41, 55, 0.5);
+  --border-color: #374151;
+  --shadow-color: rgba(0, 0, 0, 0.25);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  overflow-x: hidden;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #047857;
+}
+
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
   }
 
-  /* Enhanced typography for Apple-like feel */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply text-balance;
-  }
-
-  p {
-    @apply text-pretty;
-  }
-
-  /* Custom scrollbar styling */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply bg-muted;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground/30 rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-muted-foreground/50;
+  50% {
+    transform: translateY(-20px);
   }
 }
 
-/* Added custom animations for Apple-like interactions */
-@layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.8s ease-out;
-  }
-
-  .animate-scale-in {
-    animation: scaleIn 0.5s ease-out;
-  }
-}
-
-@keyframes fadeIn {
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
 
   to {
@@ -255,26 +159,118 @@
   }
 }
 
-@keyframes slideUp {
+@keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateX(-50px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.8);
   }
 
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+/* Utility classes */
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+/* 3D Transform utilities */
+.transform-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective {
+  perspective: 1000px;
+}
+
+.perspective-lg {
+  perspective: 2000px;
+}
+
+/* Backdrop blur fallback */
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+
+  .perspective {
+    perspective: 500px;
+  }
+
+  .perspective-lg {
+    perspective: 800px;
+  }
+}
+
+/* Focus styles for accessibility */
+button:focus,
+a:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

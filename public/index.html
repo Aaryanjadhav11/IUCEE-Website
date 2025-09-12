@@ -4,429 +4,422 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IUCEE-RIT Student Chapter</title>
+    <title>IUCEE-RIT | Innovation & Excellence</title>
+
+    <!-- Added comprehensive meta tags and external dependencies -->
+    <meta name="description"
+        content="IUCEE-RIT - Fostering innovation and excellence in engineering education through collaborative projects and research initiatives.">
+    <meta name="keywords" content="IUCEE, RIT, engineering, education, innovation, research, collaboration">
+    <meta name="author" content="IUCEE-RIT Team">
+
+    <!-- External Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles/globals.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/components.css">
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#059669',
+                        secondary: '#0f172a',
+                        accent: '#f59e0b'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body>
-    <header class="header">
-        <div class="header-container">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="profiles/logo.png" class="logo-icon" alt="IUCEE-RIT Logo">
-                    <span class="logo-text">IUCEE-RIT</span>
+<body class="bg-gray-900 text-white overflow-x-hidden">
+    <!-- Added 3D background canvas and loading screen -->
+    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full -z-10"></canvas>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary mx-auto mb-4"></div>
+            <h2 class="text-xl font-semibold">Loading IUCEE Experience...</h2>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-gray-900/90 backdrop-blur-md z-40 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img src="profiles\logo.png" alt="IUCEE Logo" class="h-10 w-10">
+                    <h1 class="text-2xl font-bold text-primary">IUCEE-RIT</h1>
                 </div>
 
-                <nav class="nav-desktop">
-                    <a href="#vision" class="nav-link">Vision</a>
-                    <a href="#achievements" class="nav-link">Achievements</a>
-                    <a href="#team" class="nav-link">Team</a>
-                    <a href="#alumni" class="nav-link">Alumni</a>
-                    <a href="#projects" class="nav-link">Projects</a>
-                    <a href="#timeline" class="nav-link">Journey</a>
-                    <a href="#sdg" class="nav-link">UN SDGs</a>
-                    <a href="#gallery" class="nav-link">Gallery</a>
-                    <a href="https://iucee.org/" class="nav-link" target="_blank" rel="noopener noreferrer">IUCEE</a>
-                </nav>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#vision" class="nav-link hover:text-primary transition-colors">Vision</a>
+                    <a href="#timeline" class="nav-link hover:text-primary transition-colors">Timeline</a>
+                    <a href="#projects" class="nav-link hover:text-primary transition-colors">Projects</a>
+                    <a href="#events" class="nav-link hover:text-primary transition-colors">Events</a>
+                    <a href="#achievements" class="nav-link hover:text-primary transition-colors">Achievements</a>
+                    <a href="#team" class="nav-link hover:text-primary transition-colors">Team</a>
+                    <a href="#sdg" class="nav-link hover:text-primary transition-colors">UN SDGs</a>
+                    <a href="#gallery" class="nav-link hover:text-primary transition-colors">Gallery</a>
+                    <a href="https://iucee.org/" class="nav-link hover:text-primary transition-colors">IUCEE</a>
+                </div>
 
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
-                    <i data-lucide="menu" class="menu-icon"></i>
-                    <i data-lucide="x" class="close-icon hidden"></i>
+                <button class="md:hidden text-white" id="mobile-menu-btn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
                 </button>
             </div>
+        </div>
+    </nav>
 
-            <div class="nav-mobile hidden" id="mobileNav">
-                <nav class="nav-mobile-content">
-                    <a href="#vision" class="nav-link-mobile">Vision</a>
-                    <a href="#timeline" class="nav-link-mobile">Journey</a>
-                    <a href="#achievements" class="nav-link-mobile">Achievements</a>
-                    <a href="#alumni" class="nav-link-mobile">Alumni</a>
-                    <a href="#projects" class="nav-link-mobile">Projects</a>
-                    <a href="#sdg" class="nav-link-mobile">UN SDGs</a>
-                    <a href="#team" class="nav-link-mobile">Team</a>
-                    <a href="#gallery" class="nav-link-mobile">Gallery</a>
-                    <a href="https://iucee.org/" class="nav-link-mobile" target="_blank"
-                        rel="noopener noreferrer">IUCEE</a>
-                </nav>
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-gray-900/95 backdrop-blur-md z-30 hidden" id="mobile-menu">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#vision" class="text-2xl hover:text-primary transition-colors mobile-nav-link">Vision</a>
+            <a href="#timeline" class="text-2xl hover:text-primary transition-colors mobile-nav-link">Timeline</a>
+            <a href="#projects" class="text-2xl hover:text-primary transition-colors mobile-nav-link">Projects</a>
+            <a href="#events" class="text-2xl hover:text-primary transition-colors mobile-nav-link">Events</a>
+            <a href="#achievements"
+                class="text-2xl hover:text-primary transition-colors mobile-nav-link">Achievements</a>
+            <a href="#sdg" class="nav-link hover:text-primary transition-colors">UN SDGs</a>
+            <a href="#team" class="text-2xl hover:text-primary transition-colors mobile-nav-link">Team</a>
+            <a href="#gallery" class="text-2xl hover:text-primary transition-colors mobile-nav-link">Gallery</a>
+            <a href="https://iucee.org/" class="nav-link hover:text-primary transition-colors">IUCEE</a>
+
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden" id="hero">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="hero-content transform-gpu">
+                <h1
+                    class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                    IUCEE-RIT
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">
+                    Fostering Innovation and Excellence in Engineering Education
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#projects"
+                        class="btn-primary px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                        Explore Projects
+                    </a>
+                    <button id="join-mission-btn"
+                        class="btn-secondary px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                        Join Our Mission
+                    </button>
+                </div>
             </div>
         </div>
-    </header>
 
-    <section id="home" class="hero-section">
-        <div class="parallax-bg-1"></div>
-        <div class="parallax-bg-2"></div>
-        <div class="parallax-bg-3"></div>
-
-        <div class="floating-elements">
-            <div class="floating-element floating-1"></div>
-            <div class="floating-element floating-2"></div>
-            <div class="floating-element floating-3"></div>
-            <div class="floating-element floating-4"></div>
-        </div>
-
-        <div class="hero-content">
-            <h1 class="hero-title">
-                IUCEE-RIT
-                <span class="hero-subtitle">Student Chapter</span>
-            </h1>
-            <h3>Indo Universal Collaboration for Engineering Education</h3>
-            <p class="hero-description">
-                Nurturing Socially Responsible Engineers for Global Impact
-            </p>
+        <!-- Floating Elements -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="floating-element absolute top-20 left-10 w-4 h-4 bg-primary rounded-full opacity-60"></div>
+            <div class="floating-element absolute top-40 right-20 w-6 h-6 bg-accent rounded-full opacity-40"></div>
+            <div class="floating-element absolute bottom-32 left-1/4 w-3 h-3 bg-primary rounded-full opacity-50"></div>
         </div>
     </section>
 
-    <section id="vision" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Vision & Mission</h2>
-                <p class="section-subtitle">Transforming Engineering Education for a Better Tomorrow</p>
-            </div>
-
-            <div class="vision-grid">
-                <div class="card vision-card">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i data-lucide="target"></i>
-                            Vision
-                        </h3>
+    <!-- Vision Section -->
+    <section class="py-20 relative" id="vision">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-primary">Our Vision</h2>
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="text-lg text-gray-300 leading-relaxed mb-12">
+                    Our vision is to cultivate an environment of engineering excellence. We are committed to empowering
+                    students with the skills, knowledge, and mindset required to tackle real-world challenges through
+                    hands-on projects, industry collaboration, and a focus on sustainable development.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="vision-card bg-gray-800/50 backdrop-blur-md p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold text-accent mb-3">Innovation</h3>
+                        <p class="text-gray-400">Driving progress through creative solutions and cutting-edge
+                            technology.</p>
                     </div>
-                    <div class="card-content">
-                        <p class="vision-text">
-                            Our goal is to nurture socially responsible and innovative engineers who use their technical
-                            skills to solve global challenges and drive sustainable development.
-                        </p>
-                        <div class="vision-points">
-                            <div class="vision-point">
-                                <i data-lucide="lightbulb"></i>
-                                <div>
-                                    <h4>Innovation & Creativity</h4>
-                                    <p>Empower students to design real-world solutions for societal and environmental
-                                        issues.</p>
-                                </div>
-                            </div>
-                            <div class="vision-point">
-                                <i data-lucide="users"></i>
-                                <div>
-                                    <h4>Community Engagement</h4>
-                                    <p>Collaborate with experts, NGOs, and local bodies to implement impactful projects.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="vision-point">
-                                <i data-lucide="shield"></i>
-                                <div>
-                                    <h4>Leadership & Teamwork</h4>
-                                    <p>Promote inclusive leadership, collaboration, and lifelong learning.</p>
-                                </div>
-                            </div>
-                            <div class="vision-point">
-                                <i data-lucide="heart"></i>
-                                <div>
-                                    <h4>Social Responsibility</h4>
-                                    <p>Apply engineering for societal good in areas like sustainability, healthcare, and
-                                        welfare.</p>
-                                </div>
-                            </div>
-                            <div class="vision-point">
-                                <i data-lucide="award"></i>
-                                <div>
-                                    <h4>Excellence & Collaboration</h4>
-                                    <p>Encourage national/international competition participation and industry-academic
-                                        partnerships.</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="vision-card bg-gray-800/50 backdrop-blur-md p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold text-accent mb-3">Collaboration</h3>
+                        <p class="text-gray-400">Building strong partnerships between students, faculty, and industry
+                            leaders.</p>
                     </div>
-                </div>
-
-                <div class="card mission-card">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i data-lucide="book-open"></i>
-                            Mission
-                        </h3>
-                    </div>
-                    <div class="card-content">
-                        <p class="mission-text">
-                            To create a platform where engineering students can develop innovative solutions, engage
-                            with real-world challenges, and contribute meaningfully to society through collaborative
-                            learning and sustainable practices.
-                        </p>
-                        <div class="mission-badges">
-                            <span class="badge">Research & Innovation</span>
-                            <span class="badge">Community Impact</span>
-                            <span class="badge">Sustainable Development</span>
-                            <span class="badge">Global Collaboration</span>
-                        </div>
+                    <div class="vision-card bg-gray-800/50 backdrop-blur-md p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold text-accent mb-3">Excellence</h3>
+                        <p class="text-gray-400">Upholding the highest standards in education, research, and project
+                            execution.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="timeline" class="section timeline-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Journey</h2>
-                <p class="section-subtitle">Milestones in Engineering Education Excellence</p>
-            </div>
-
-            <div class="timeline">
-                <div class="timeline-line"></div>
-                <div class="timeline-events" id="timelineEvents">
+    <!-- SDG section -->
+    <section class="py-20 relative" id="sdg">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-primary">UN Sustainable Development Goals
+            </h2>
+            <div class="scroll-section-container">
+                <button class="scroll-nav-btn left-0" id="sdg-prev">&lt;</button>
+                <button class="scroll-nav-btn right-0" id="sdg-next">&gt;</button>
+                <div class="scroll-wrapper" id="sdg-scroller">
+                    <!-- SDG cards will be loaded here by JS -->
                 </div>
+                <div class="scroll-indicator" id="sdg-indicator"></div>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="section scroll-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Impactful Projects</h2>
-                <p class="section-subtitle">Innovating for a Sustainable Future</p>
+    <!-- Timeline Section -->
+    <section class="py-20 relative" id="timeline">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-primary">Our Journey</h2>
+            <div id="timeline-container" class="timeline-container relative">
+                <!-- Timeline items will be loaded here -->
             </div>
-            <div class="scroller-wrapper">
-                <div class="scroll-container">
-                    <div class="scroll-inner" id="projectsScroll">
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="py-20 relative" id="projects">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-primary">Featured Projects</h2>
+            <div class="scroll-section-container">
+                <button class="scroll-nav-btn left-0" id="projects-prev">&lt;</button>
+                <button class="scroll-nav-btn right-0" id="projects-next">&gt;</button>
+                <div class="scroll-wrapper" id="projects-scroller">
+                    <!-- Project cards will be loaded here by JS -->
+                </div>
+                <div class="scroll-indicator" id="projects-indicator"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="py-20 relative" id="events">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-primary">Events</h2>
+            <div class="flex justify-center mb-12">
+                <div class="bg-gray-800/50 backdrop-blur-md rounded-lg p-2">
+                    <button class="event-tab-btn active px-6 py-3 rounded-md" data-tab="upcoming">Upcoming</button>
+                    <button class="event-tab-btn px-6 py-3 rounded-md" data-tab="past">Past</button>
+                </div>
+            </div>
+
+            <!-- Upcoming Events Scroller -->
+            <div class="event-tab-content active" id="upcoming-events">
+                <div class="scroll-section-container">
+                    <button class="scroll-nav-btn left-0" id="projects-prev">&lt;</button>
+                    <button class="scroll-nav-btn right-0" id="projects-next">&gt;</button>
+                    <div class="scroll-wrapper" id="upcoming-events-scroller">
+                        <!-- Upcoming events loaded here -->
                     </div>
+                    <div class="scroll-indicator" id="upcoming-indicator"></div>
                 </div>
-                <button class="scroll-nav scroll-prev" id="projectsPrev" aria-label="Previous Project">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button class="scroll-nav scroll-next" id="projectsNext" aria-label="Next Project">
-                    <i data-lucide="chevron-right"></i>
-                </button>
             </div>
-            <div class="scroll-indicators" id="projectsIndicators">
-            </div>
-        </div>
-    </section>
 
-    <section id="achievements" class="section scroll-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Achievements</h2>
-                <p class="section-subtitle">Making a Difference Through Engineering Excellence</p>
-            </div>
-            <div class="scroller-wrapper">
-                <div class="scroll-container">
-                    <div class="scroll-inner" id="achievementsScroll">
+            <!-- Past Events Scroller -->
+            <div class="event-tab-content hidden" id="past-events">
+                <div class="scroll-section-container">
+                    <button class="scroll-nav-btn left-0" id="projects-prev">&lt;</button>
+                    <button class="scroll-nav-btn right-0" id="projects-next">&gt;</button>
+                    <div class="scroll-wrapper" id="past-events-scroller">
+                        <!-- Past events loaded here -->
                     </div>
+                    <div class="scroll-indicator" id="past-indicator"></div>
                 </div>
-                <button class="scroll-nav scroll-prev" id="achievementsPrev" aria-label="Previous Achievement">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button class="scroll-nav scroll-next" id="achievementsNext" aria-label="Next Achievement">
-                    <i data-lucide="chevron-right"></i>
-                </button>
-            </div>
-            <div class="scroll-indicators" id="achievementsIndicators">
             </div>
         </div>
     </section>
 
-
-    <section id="sdg" class="section scroll-section sdg-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">UN Sustainable Development Goals</h2>
-                <p class="section-subtitle">Our Club's Focus on Global Impact</p>
-            </div>
-            <div class="scroller-wrapper">
-                <div class="scroll-container">
-                    <div class="scroll-inner" id="sdgScroll">
-                    </div>
-                </div>
-                <button class="scroll-nav scroll-prev" id="sdgPrev" aria-label="Previous SDG">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button class="scroll-nav scroll-next" id="sdgNext" aria-label="Next SDG">
-                    <i data-lucide="chevron-right"></i>
-                </button>
-            </div>
-            <div class="scroll-indicators" id="sdgIndicators">
+    <!-- Achievements Section -->
+    <section class="py-20 relative" id="achievements">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-primary">Our Impact</h2>
+            <div id="achievements-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             </div>
         </div>
     </section>
 
-    <section id="team" class="section scroll-section">
-        <div class="container">
-            <div class="section-header" data-parallax>
-                <h2 class="section-title">Our Leadership</h2>
-                <p class="section-subtitle">Meet the Visionaries & Student Leaders Behind IUCEE-RIT</p>
-            </div>
-
-            <div class="scroller-wrapper">
-                <div class="scroll-container">
-                    <div class="scroll-inner" id="teamScroll">
-                    </div>
+    <!-- Team Section -->
+    <section class="py-20 relative" id="team">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-primary">Our Team</h2>
+            <div class="scroll-section-container">
+                <button class="scroll-nav-btn left-0" id="projects-prev">&lt;</button>
+                <button class="scroll-nav-btn right-0" id="projects-next">&gt;</button>
+                <div class="scroll-wrapper" id="team-scroller">
+                    <!-- Team cards will be loaded here by JS -->
                 </div>
-                <button class="scroll-nav scroll-prev" id="teamPrev" aria-label="Previous Leader">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button class="scroll-nav scroll-next" id="teamNext" aria-label="Next Leader">
-                    <i data-lucide="chevron-right"></i>
-                </button>
-            </div>
-            <div class="scroll-indicators" id="teamIndicators">
+                <div class="scroll-indicator" id="team-indicator"></div>
             </div>
         </div>
     </section>
 
-    <section id="alumni" class="section scroll-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Alumni</h2>
-                <p class="section-subtitle">Carrying the IUCEE-RIT Legacy Forward</p>
-            </div>
-            <div class="scroller-wrapper">
-
-                <div class="scroll-container">
-                    <div class="scroll-inner" id="alumniScroll">
-                    </div>
+    <!-- Alumni Section -->
+    <section class="py-20 relative bg-gray-900/50" id="alumni">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-primary">Our Alumni</h2>
+            <div class="scroll-section-container">
+                <button class="scroll-nav-btn left-0" id="alumni-prev">&lt;</button>
+                <button class="scroll-nav-btn right-0" id="alumni-next">&gt;</button>
+                <div class="scroll-wrapper" id="alumni-scroller">
                 </div>
-                <button class="scroll-nav scroll-prev" id="alumniPrev" aria-label="Previous Alumni">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button class="scroll-nav scroll-next" id="alumniNext" aria-label="Next Alumni">
-                    <i data-lucide="chevron-right"></i>
-                </button>
-            </div>
-            <div class="scroll-indicators" id="alumniIndicators">
+                <div class="scroll-indicator" id="alumni-indicator"></div>
             </div>
         </div>
     </section>
 
-    <section id="gallery" class="section gallery-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Journey in Pictures</h2>
-                <p class="section-subtitle">Moments from IASF Events Across India</p>
-            </div>
-
-            <div class="gallery-main">
-                <div class="gallery-slider" id="gallerySlider">
-                    <!-- gallery will be filled with JS -->
+    <!-- Gallery Section -->
+    <section class="py-20 relative" id="gallery">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-primary">Gallery</h2>
+            <div class="relative">
+                <div class="gallery-slider" id="gallery-slider">
                 </div>
-                <button class="gallery-nav gallery-prev" id="galleryPrev" aria-label="Previous Gallery Image">
-                    <i data-lucide="chevron-left"></i>
-                </button>
-                <button class="gallery-nav gallery-next" id="galleryNext" aria-label="Next Gallery Image">
-                    <i data-lucide="chevron-right"></i>
-                </button>
-                <div class="gallery-indicators" id="galleryIndicators">
-                </div>
-            </div>
-
-            <div class="gallery-thumbnails" id="galleryThumbnails">
+                <button id="gallery-prev" class="gallery-nav left-0"><svg class="w-6 h-6" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                        </path>
+                    </svg></button>
+                <button id="gallery-next" class="gallery-nav right-0"><svg class="w-6 h-6" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg></button>
+                <div class="scroll-indicator" id="gallery-indicator"></div>
             </div>
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="social-media-section">
-                <h3>Connect With Us</h3>
-                <div class="social-cards" id="socialCards">
+    <div id="event-gallery-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+                <div class="flex items-center justify-between p-4 border-b border-gray-700 flex-shrink-0">
+                    <h3 id="modal-event-title" class="text-xl font-bold text-primary">Gallery</h3>
+                    <button id="close-modal" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="modal-gallery-grid"
+                    class="p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="footer-bottom">
-                <div class="footer-copyright">
-                    <span>© 2025 IUCEE-RIT Student Chapter. All rights reserved.</span>
-                    <span>Built with ❤️ by IUCEE-RIT Tech Team | Powered by Vercel</span>
-                </div>
+    <!-- Footer -->
+    <footer class="bg-gray-800/50 backdrop-blur-md py-12">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-primary">Connect With Us</h3>
+                <p class="text-gray-400">Follow our journey and get the latest updates on our social channels.</p>
+            </div>
+            <div id="social-media-links" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 IUCEE-RIT. All rights reserved.</p>
+                <p>Built by the IUCEE-RIT Tech Team.</p>
             </div>
         </div>
     </footer>
 
-    <div class="floating-btn-container">
-        <button class="floating-btn" id="enrollBtn">Loading....</button>
-    </div>
-
-    <div class="modal-overlay hidden" id="modalOverlay">
-        <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
-            <div class="modal-header">
-                <h2 id="modalTitle">Application Form</h2>
-                <button class="modal-close" id="modalClose" aria-label="Close Modal">
-                    <i data-lucide="x"></i>
-                </button>
-            </div>
-            <div class="modal-content">
-                <form id="applicationForm">
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="prn">PRN/Roll Number *</label>
-                        <input type="number" id="prn" name="prn" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="branch">Branch/Department *</label>
-                        <select id="branch" name="branch" required>
-                            <option value="">Select Branch</option>
-                            <option value="mechatronics">Mechatronics</option>
-                            <option value="csc">CSC</option>
-                            <option value="mechanical">Mechanical</option>
-                            <option value="civil">Civil</option>
-                            <option value="electrical">Electrical</option>
-                            <option value="csit">CSIT</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="year">Academic Year *</label>
-                        <select id="year" name="year" required>
-                            <option value="">Select Year</option>
-                            <option value="first">First Year</option>
-                            <option value="second">Second Year</option>
-                            <option value="third">Third Year</option>
-                            <option value="final">Final Year</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="motivation">Why do you want to join IUCEE-RIT? *</label>
-                        <textarea id="motivation" name="motivation" rows="4" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="experience">Previous Experience (Optional)</label>
-                        <textarea id="experience" name="experience" rows="3"></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
-                        <button type="submit" class="btn-primary">Submit Application</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay hidden" id="galleryModalOverlay">
-        <div class="modal gallery-modal" role="dialog" aria-labelledby="galleryModalTitle" aria-modal="true">
-            <div class="modal-header">
-                <h2 id="galleryModalTitle">Gallery</h2>
-                <button class="modal-close" id="galleryModalClose" aria-label="Close Gallery">
-                    <i data-lucide="x"></i>
-                </button>
-            </div>
-            <div class="modal-content">
-                <div class="gallery-modal-grid" id="galleryModalGrid">
+    <!-- Application Form -->
+    <div id="application-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-800 rounded-2xl max-w-lg w-full max-h-[90vh] overflow-hidden">
+                <div class="flex items-center justify-between p-6 border-b border-gray-700">
+                    <h3 class="text-2xl font-bold text-primary">Join Our Mission</h3>
+                    <button id="close-apply-modal" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-6 overflow-y-auto max-h-[70vh]">
+                    <form id="application-form">
+                        <div class="space-y-4">
+                            <input type="text" name="name" placeholder="Full Name"
+                                class="w-full p-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                required>
+                            <input type="email" name="email" placeholder="Email Address"
+                                class="w-full p-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                required>
+                            <input type="tel" name="phone" placeholder="Contact Number"
+                                class="w-full p-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                required>
+                            <input type="text" name="prn" placeholder="PRN (University ID)"
+                                class="w-full p-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                required>
+                            <select name="branch"
+                                class="w-full p-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                required>
+                                <option value="" disabled selected>Branch of Study</option>
+                                <option value="Computer Engineering">Computer Engineering</option>
+                                <option value="Information Technology">Information Technology</option>
+                                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                <option value="Electronics & Telecommunication">Electronics & Telecommunication</option>
+                                <option value="Civil Engineering">Civil Engineering</option>
+                                <option value="Electrical Engineering">Electrical Engineering</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <select name="year"
+                                class="w-full p-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                required>
+                                <option value="" disabled selected>Year of Study</option>
+                                <option value="1">First Year</option>
+                                <option value="2">Second Year</option>
+                                <option value="3">Third Year</option>
+                                <option value="4">Final Year</option>
+                            </select>
+                            <textarea name="motivation" placeholder="Why do you want to join IUCEE-RIT?" rows="3"
+                                class="w-full p-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                required></textarea>
+                            <textarea name="experience" placeholder="Any previous experience? (Optional)" rows="2"
+                                class="w-full p-3 bg-gray-700 rounded-lg focus:ring-2 focus:ring-primary outline-none"></textarea>
+                            <button type="submit" class="btn-primary w-full py-3 rounded-lg font-semibold">Submit
+                                Application</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Details Panel -->
+    <div id="details-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-gray-800 rounded-2xl max-w-lg w-full max-h-[90vh] overflow-hidden flex flex-col">
+                <div class="flex items-center justify-between p-6 border-b border-gray-700 flex-shrink-0">
+                    <h3 id="details-modal-title" class="text-2xl font-bold text-primary">Details</h3>
+                    <button id="close-details-modal-btn" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="details-modal-content" class="p-6 overflow-y-auto">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="scripts/data.js"></script>
     <script src="scripts/main.js"></script>
 </body>
