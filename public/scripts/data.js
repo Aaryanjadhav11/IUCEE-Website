@@ -178,54 +178,14 @@ window.alumni = [
 window.projectsData = [
   {
     id: 1,
-    title: "Smart Irrigation System",
-    description: "An IoT-based system to optimize water usage for local farms, featuring real-time soil moisture monitoring and automated water distribution to conserve resources and improve crop yield.",
+    title: "Ceramic Water Filteration",
+    description: "An water filter",
     images: [
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png"
     ],
-    category: "IoT",
+    category: "Water",
     year: "2024",
-    technologies: ["Arduino", "IoT", "Sensors", "C++"],
-    status: "Completed"
-  },
-  {
-    id: 2,
-    title: "Portable Water Purification",
-    description: "A low-cost, multi-stage filtration device designed to provide safe and clean drinking water in remote and underserved rural areas, tackling waterborne diseases.",
-    images: [
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png"
-    ],
-    category: "Health",
-    year: "2023",
-    technologies: ["Filtration", "Mechanical Design", "Material Science"],
-    status: "Completed"
-  },
-  {
-    id: 3,
-    title: "AI-Powered Waste Sorter",
-    description: "A machine learning model integrated with a conveyor system that uses computer vision to automatically identify and sort different types of recyclable materials, improving efficiency in waste management.",
-    images: [
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png",
-      "/profiles/alumni6.png"
-    ],
-    category: "AI/ML",
-    year: "2024",
-    technologies: ["Python", "TensorFlow", "Computer Vision", "Raspberry Pi"],
-    status: "In Progress"
+    technologies: ["Pure Water", "Physics", "Ceramics"],
+    status: "Active"
   },
 ];
 // --- Team Data ---
@@ -339,62 +299,6 @@ window.eventsData = {
       highlights: ["AI", "ChatGPT", "Prompt Engineering"],
       gallery: [
         "/images/Past/ai/1.jpg",
-      ]
-    },
-    {
-      title: "Monument activity",
-      description: "Like.... What?",
-      image: "/images/Past/activity/1.jpg",
-      category: "Activity",
-      date: "2025-08-20",
-      location: "RIT Campus, Club Room",
-      attendees: 13,
-      highlights: ["Bottles and Creatvity", "Still.... What?"],
-      gallery: [
-        "/images/Past/activity/1.jpg",
-        "/images/Past/activity/2.jpg",
-      ]
-    },
-    {
-      title: "Monument activity",
-      description: "Like.... What?",
-      image: "/images/Past/activity/1.jpg",
-      category: "Activity",
-      date: "2025-08-20",
-      location: "RIT Campus, Club Room",
-      attendees: 13,
-      highlights: ["Bottles and Creatvity", "Still.... What?"],
-      gallery: [
-        "/images/Past/activity/1.jpg",
-        "/images/Past/activity/2.jpg",
-      ]
-    },
-    {
-      title: "Monument activity",
-      description: "Like.... What?",
-      image: "/images/Past/activity/1.jpg",
-      category: "Activity",
-      date: "2025-08-20",
-      location: "RIT Campus, Club Room",
-      attendees: 13,
-      highlights: ["Bottles and Creatvity", "Still.... What?"],
-      gallery: [
-        "/images/Past/activity/1.jpg",
-        "/images/Past/activity/2.jpg",
-      ]
-    },
-    {
-      title: "Monument activity",
-      description: "Like.... What?",
-      image: "/images/Past/activity/1.jpg",
-      category: "Activity",
-      date: "2025-08-20",
-      location: "RIT Campus, Club Room",
-      attendees: 13,
-      highlights: ["Bottles and Creatvity", "Still.... What?"],
-      gallery: [
-        "/images/Past/activity/1.jpg",
-        "/images/Past/activity/2.jpg",
       ]
     },
   ]
