@@ -491,7 +491,7 @@
 
 #modal-gallery-grid img {
   width: 100%;
-  height: 150px;
+  height: 11rem;
   object-fit: cover;
   border-radius: 0.5rem;
   cursor: pointer;

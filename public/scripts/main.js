@@ -652,6 +652,19 @@ class IUCEEWebsite {
     const upcomingScroller = document.getElementById("upcoming-events-scroller"); // Target the scroller now
     if (!upcomingScroller || !eventsData) return;
     upcomingScroller.innerHTML = "";
+
+    // check if there are no upcoming events
+    if (!eventsData.upcoming || eventsData.upcoming.length === 0) {
+      const noEventsCard = document.createElement("div");
+      noEventsCard.className = "event-card text-center p-6 bg-gray-800 rounded-lg text-gray-300";
+      noEventsCard.innerHTML = `
+      <h3 class="text-xl font-bold text-white mb-2">No Upcoming Events</h3>
+      <p class="text-gray-400">Check back later for new updates.</p>
+    `;
+      upcomingScroller.appendChild(noEventsCard);
+      return; // stop here
+    }
+
     eventsData.upcoming.forEach((event, index) => {
       const eventCard = this.createUpcomingEventCard(event);
       eventCard.style.animationDelay = `${index * 0.1}s`;

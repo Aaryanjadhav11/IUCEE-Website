@@ -92,18 +92,19 @@ window.sdgData = [
 // --- Gallery Data ---
 window.galleryData = [
   {
-    src: "/images/iasf-hyderabad.jpg",
+    src: "/images/iasf-hyderabad/iasf-hyderabad.jpg",
     alt: "IASF 2025 at VNR VJIET, Hyderabad",
     title: "IASF 2025 - Hyderabad",
     description: "VNR Vignana Jyothi Institute of Engineering & Technology",
     fullGallery: [
       "/images/iasf-hyderabad/1.jpg",
       "/images/iasf-hyderabad/2.jpg",
-      "/images/iasf-hyderabad/3.jpg"
+      "/images/iasf-hyderabad/3.jpg",
+      "/images/iasf-hyderabad/4.jpg",
     ],
   },
   {
-    src: "/images/iasf-hubli.jpg",
+    src: "/images/iasf-hubli/iasf-hubli.jpg",
     alt: "IASF 2024 at KLE Technological University, Hubli",
     title: "IASF 2024 - Hubli",
     description: "KLE Technological University, Hubli, Karnataka",
@@ -116,7 +117,7 @@ window.galleryData = [
     ],
   },
   {
-    src: "/images/iasf-mysore.jpg",
+    src: "/images/iasf-mysore/iasf-mysore.jpg",
     alt: "IASF 1 at Vidyavardhaka College of Engineering, Mysore",
     title: "IASF 1 - Mysore",
     description: "Vidyavardhaka College of Engineering, Mysore, Karnataka",
@@ -275,43 +276,126 @@ window.teamData = [
 // Sample data matching the new events card structure.
 window.eventsData = {
   upcoming: [
-    {
-      id: 1,
-      title: "Tech Talk: The Future of AI",
-      description: "Join us for an insightful session with industry experts on the future of Artificial Intelligence.",
-      image: "/images/iasf-hubli.jpg",
-      category: "Webinar",
-      date: "2025-10-15T19:00:00",
-      time: "7:00 PM IST",
-      location: "Online",
-      registered: 45,
-      capacity: 100
-    }
+    // {
+    //   title: "Get Minds Together",
+    //   description: "",
+    //   image: "/images/iasf-hubli.jpg",
+    //   category: "Webinar",
+    //   date: "2025-10-15T19:00:00",
+    //   time: "7:00 PM IST",
+    //   location: "Online",
+    //   registered: 45,
+    //   capacity: 100
+    // }
   ],
   past: [
     {
-      id: 2,
-      title: "Workshop on IoT Basics",
-      description: "A hands-on workshop covering the fundamentals of IoT and Arduino programming.",
-      image: "/images/iasf-hubli.jpg",
+      title: "Electric Vehicals",
+      description: "A Wrokshop on Electric Vehical",
+      image: "/images/Past/EV/1.jpg",
       category: "Workshop",
       date: "2025-08-20",
-      location: "RIT Campus",
-      attendees: 60,
-      projects: 15,
-      highlights: ["Live demos of IoT devices", "Team-based mini-projects"],
+      location: "RIT Campus, Club Room",
+      attendees: 13,
+      highlights: ["Information on EV", "EV system design", "Market details"],
       gallery: [
-        "/images/iasf-hubli.jpg",
-        "/images/iasf-hubli.jpg",
-        "/images/iasf-hubli.jpg",
-        "/images/iasf-hubli.jpg",
-        "/images/iasf-hubli.jpg",
-        "/images/iasf-hubli.jpg",
-        "/images/iasf-hubli.jpg",
-        "/images/iasf-hubli.jpg",
-        "/images/iasf-hubli.jpg",
-        "/images/iasf-hubli.jpg",
+        "/images/Past/EV/1.jpg",
       ]
-    }
+    },
+    {
+      title: "Figma",
+      description: "A Wrokshop on Design in Figma",
+      image: "/images/Past/figma/1.jpg",
+      category: "Workshop",
+      date: "2025-08-20",
+      location: "RIT Campus, Club Room",
+      attendees: 13,
+      highlights: ["Figma", "Profile Card Design"],
+      gallery: [
+        "/images/Past/figma/1.jpg",
+      ]
+    },
+    {
+      title: "CAD",
+      description: "A Wrokshop on Design in Solidworks (CAD)",
+      image: "/images/Past/cad/1.jpg",
+      category: "Workshop",
+      date: "2025-08-20",
+      location: "RIT Campus, Club Room",
+      attendees: 13,
+      highlights: ["CAD", "Solidworks"],
+      gallery: [
+        "/images/Past/cad/1.jpg",
+      ]
+    },
+    {
+      title: "AI",
+      description: "A Wrokshop on AI Prompt Engineering",
+      image: "/images/Past/ai/1.jpg",
+      category: "Workshop",
+      date: "2025-08-20",
+      location: "RIT Campus, Club Room",
+      attendees: 13,
+      highlights: ["AI", "ChatGPT", "Prompt Engineering"],
+      gallery: [
+        "/images/Past/ai/1.jpg",
+      ]
+    },
+    {
+      title: "Monument activity",
+      description: "Like.... What?",
+      image: "/images/Past/activity/1.jpg",
+      category: "Activity",
+      date: "2025-08-20",
+      location: "RIT Campus, Club Room",
+      attendees: 13,
+      highlights: ["Bottles and Creatvity", "Still.... What?"],
+      gallery: [
+        "/images/Past/activity/1.jpg",
+        "/images/Past/activity/2.jpg",
+      ]
+    },
+    {
+      title: "Monument activity",
+      description: "Like.... What?",
+      image: "/images/Past/activity/1.jpg",
+      category: "Activity",
+      date: "2025-08-20",
+      location: "RIT Campus, Club Room",
+      attendees: 13,
+      highlights: ["Bottles and Creatvity", "Still.... What?"],
+      gallery: [
+        "/images/Past/activity/1.jpg",
+        "/images/Past/activity/2.jpg",
+      ]
+    },
+    {
+      title: "Monument activity",
+      description: "Like.... What?",
+      image: "/images/Past/activity/1.jpg",
+      category: "Activity",
+      date: "2025-08-20",
+      location: "RIT Campus, Club Room",
+      attendees: 13,
+      highlights: ["Bottles and Creatvity", "Still.... What?"],
+      gallery: [
+        "/images/Past/activity/1.jpg",
+        "/images/Past/activity/2.jpg",
+      ]
+    },
+    {
+      title: "Monument activity",
+      description: "Like.... What?",
+      image: "/images/Past/activity/1.jpg",
+      category: "Activity",
+      date: "2025-08-20",
+      location: "RIT Campus, Club Room",
+      attendees: 13,
+      highlights: ["Bottles and Creatvity", "Still.... What?"],
+      gallery: [
+        "/images/Past/activity/1.jpg",
+        "/images/Past/activity/2.jpg",
+      ]
+    },
   ]
 };
